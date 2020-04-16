@@ -50,4 +50,8 @@ RUN ln -s /epics/alarmIOC/iocBoot/iocalarmIOC/start_tmux_st.cmd /usr/src/app/sta
 
 COPY alarmHandlerServer/src/python/initDBData /usr/src/app/initDBData
 COPY alarmHandlerServer/src/python/*.py ./
+
+# custom EPICS_CA_ADDR_LIST to only allow dev stuff to communicate
+ENV EPICS_CA_ADDR_LIST="0.0.0.0:8001"
+
 CMD ["python","main.py"]

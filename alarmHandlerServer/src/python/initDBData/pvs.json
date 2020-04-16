@@ -1,5 +1,235 @@
 [
     {
+        "area": "DEMO IOC",
+        "enable": true,
+        "pvs": {},
+        "subArea0": {
+            "name": "POWER SUPPLIES",
+            "enable": true,
+            "pvs": {
+                "pv0": {
+                    "name": "testIOC:PS1:Readback",
+                    "enable": true,
+                    "latch": true,
+                    "notify": true,
+                    "lastAlarmVal": "",
+                    "lastAlarmTime": "",
+                    "lastAlarmAckTime": ""
+                },
+                "pv1": {
+                    "name": "testIOC:PS2:Readback",
+                    "enable": true,
+                    "latch": true,
+                    "notify": true,
+                    "lastAlarmVal": "",
+                    "lastAlarmTime": "",
+                    "lastAlarmAckTime": ""
+                },
+                "pv2": {
+                    "name": "testIOC:PS3:Readback",
+                    "enable": true,
+                    "latch": true,
+                    "notify": true,
+                    "lastAlarmVal": "",
+                    "lastAlarmTime": "",
+                    "lastAlarmAckTime": ""
+                },
+                "pv3": {
+                    "name": "testIOC:PS4:Readback",
+                    "enable": true,
+                    "latch": true,
+                    "notify": true,
+                    "lastAlarmVal": "",
+                    "lastAlarmTime": "",
+                    "lastAlarmAckTime": ""
+                },
+                "pv4": {
+                    "name": "testIOC:STR1:X:Readback",
+                    "enable": true,
+                    "latch": true,
+                    "notify": true,
+                    "lastAlarmVal": "",
+                    "lastAlarmTime": "",
+                    "lastAlarmAckTime": ""
+                },
+                "pv5": {
+                    "name": "testIOC:STR1:Y:Readback",
+                    "enable": true,
+                    "latch": true,
+                    "notify": true,
+                    "lastAlarmVal": "",
+                    "lastAlarmTime": "",
+                    "lastAlarmAckTime": ""
+                },
+                "pv6": {
+                    "name": "testIOC:STR2:X:Readback",
+                    "enable": true,
+                    "latch": true,
+                    "notify": true,
+                    "lastAlarmVal": "",
+                    "lastAlarmTime": "",
+                    "lastAlarmAckTime": ""
+                },
+                "pv7": {
+                    "name": "testIOC:STR2:Y:Readback",
+                    "enable": true,
+                    "latch": true,
+                    "notify": true,
+                    "lastAlarmVal": "",
+                    "lastAlarmTime": "",
+                    "lastAlarmAckTime": ""
+                },
+                "pv8": {
+                    "name": "testIOC:STR3:Y:Readback",
+                    "enable": true,
+                    "latch": true,
+                    "notify": true,
+                    "lastAlarmVal": "",
+                    "lastAlarmTime": "",
+                    "lastAlarmAckTime": ""
+                },
+                "pv9": {
+                    "name": "testIOC:STR4:X:Readback",
+                    "enable": true,
+                    "latch": true,
+                    "notify": true,
+                    "lastAlarmVal": "",
+                    "lastAlarmTime": "",
+                    "lastAlarmAckTime": ""
+                }
+            }
+        },
+        "subArea1": {
+            "name": "SLITS",
+            "enable": true,
+            "pvs": {
+                "pv0": {
+                    "name": "testIOC:SLITXY1:X:Gap:Readback",
+                    "enable": true,
+                    "latch": true,
+                    "notify": true,
+                    "lastAlarmVal": "",
+                    "lastAlarmTime": "",
+                    "lastAlarmAckTime": ""
+                },
+                "pv1": {
+                    "name": "testIOC:SLITXY1:X:Offset:Readback",
+                    "enable": true,
+                    "latch": true,
+                    "notify": true,
+                    "lastAlarmVal": "",
+                    "lastAlarmTime": "",
+                    "lastAlarmAckTime": ""
+                },
+                "pv2": {
+                    "name": "testIOC:SLITXY1:Y:Gap:Readback",
+                    "enable": true,
+                    "latch": true,
+                    "notify": true,
+                    "lastAlarmVal": "",
+                    "lastAlarmTime": "",
+                    "lastAlarmAckTime": ""
+                },
+                "pv3": {
+                    "name": "testIOC:SLITXY1:Y:Offset:Readback",
+                    "enable": true,
+                    "latch": true,
+                    "notify": true,
+                    "lastAlarmVal": "",
+                    "lastAlarmTime": "",
+                    "lastAlarmAckTime": ""
+                },
+                "pv4": {
+                    "name": "testIOC:SLITXY2:X:Gap:Readback",
+                    "enable": true,
+                    "latch": true,
+                    "notify": true,
+                    "lastAlarmVal": "",
+                    "lastAlarmTime": "",
+                    "lastAlarmAckTime": ""
+                },
+                "pv5": {
+                    "name": "testIOC:SLITXY2:X:Offset:Readback",
+                    "enable": true,
+                    "latch": true,
+                    "notify": true,
+                    "lastAlarmVal": "",
+                    "lastAlarmTime": "",
+                    "lastAlarmAckTime": ""
+                },
+                "pv6": {
+                    "name": "testIOC:SLITXY2:Y:Gap:Readback",
+                    "enable": true,
+                    "latch": true,
+                    "notify": true,
+                    "lastAlarmVal": "",
+                    "lastAlarmTime": "",
+                    "lastAlarmAckTime": ""
+                },
+                "pv7": {
+                    "name": "testIOC:SLITXY2:Y:Offset:Readback",
+                    "enable": true,
+                    "latch": true,
+                    "notify": true,
+                    "lastAlarmVal": "",
+                    "lastAlarmTime": "",
+                    "lastAlarmAckTime": ""
+                },
+                "pv8": {
+                    "name": "testIOC:SLITXY3:X:Gap:Readback",
+                    "enable": true,
+                    "latch": true,
+                    "notify": true,
+                    "lastAlarmVal": "",
+                    "lastAlarmTime": "",
+                    "lastAlarmAckTime": ""
+                },
+                "pv9": {
+                    "name": "testIOC:SLITXY3:X:Offset:Readback",
+                    "enable": true,
+                    "latch": true,
+                    "notify": true,
+                    "lastAlarmVal": "",
+                    "lastAlarmTime": "",
+                    "lastAlarmAckTime": ""
+                },
+                "pv10": {
+                    "name": "testIOC:SLITXY3:Y:Gap:Readback",
+                    "enable": true,
+                    "latch": true,
+                    "notify": true,
+                    "lastAlarmVal": "",
+                    "lastAlarmTime": "",
+                    "lastAlarmAckTime": ""
+                },
+                "pv11": {
+                    "name": "testIOC:SLITXY3:Y:Offset:Readback",
+                    "enable": true,
+                    "latch": true,
+                    "notify": true,
+                    "lastAlarmVal": "",
+                    "lastAlarmTime": "",
+                    "lastAlarmAckTime": ""
+                }
+            }
+        },
+        "subArea2": {
+            "name": "EPICS PVS",
+            "enable": true,
+            "pvs": {
+                "pv0": {
+                    "name": "testIOC:amplitude",
+                    "enable": true,
+                    "latch": true,
+                    "notify": true,
+                    "lastAlarmVal": "",
+                    "lastAlarmTime": "",
+                    "lastAlarmAckTime": ""
+                }
+            }
+        }
+    },
+    {
         "area": "BEAMLINE",
         "enable": true,
         "pvs": {
