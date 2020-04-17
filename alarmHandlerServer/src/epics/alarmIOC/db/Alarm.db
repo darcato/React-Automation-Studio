@@ -8,11 +8,15 @@ record(waveform, "$(alarm_name)") {
 # Alarm status
 record(mbbi, "$(alarm_name)A") {
     field(DTYP, "Soft Channel")
-    field(ZRST, "ALARM")            field(ZRSV, "MAJOR")
-    field(ONST, "ACKED")            field(ONSV, "MINOR")
-    field(TWST, "NO_ALARM")         field(TWSV, "NO_ALARM")
+    field(ZRST, "NO_ALARM")
+    field(ONST, "MINOR_ACKED")
+    field(TWST, "MINOR")
+    field(THST, "MAJOR_ACKED")
+    field(FRST, "MAJOR")
+    field(FVST, "INVALID_ACKED")
+    field(SXST, "INVALID")
     field(PINI, "YES")
-    field(VAL, "2")
+    field(VAL, "0")
 }
 # Alarm Value
 record(stringin, "$(alarm_name)V") {
