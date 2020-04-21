@@ -95,7 +95,8 @@ def propAreaAlarms(pvname, value):
             if (enable):
                 evaluateAreaPVs(areaKey + "-" + subArea)
                 # wait for subArea to evaluate before topArea
-                sleep(0.01)
+                sleep(0.005)
+                # Fixed
                 evaluateAreaPVs(areaKey)
 
         else:
@@ -115,6 +116,11 @@ def evaluateAreaPVs(areaKey, fromColWatch=False):
     # 5 "INVALID_ACKED"
     # 6 "INVALID"
     alarmState = 0
+    # to catch in alarm state to negate a higher level ack state
+    # no need to catch invalid alarm as it is highest ranked
+    minorAlarm = False
+    majorAlarm = False
+    ackStates = [1, 3, 5]
 
     for key in pvDict.keys():
         if (re.sub(r"-pv\d+", "", key) == areaKey):
@@ -133,12 +139,25 @@ def evaluateAreaPVs(areaKey, fromColWatch=False):
                 val = 0
             if (val > alarmState):
                 alarmState = val
+            if(val == 2):
+                minorAlarm = True
+            elif(val == 4):
+                majorAlarm = True
+
+    # active alarm always supercedes acked state alarm
+    if alarmState in ackStates:
+        # major alarm takes precedence
+        if(majorAlarm):
+            alarmState = 4
+        elif(minorAlarm):
+            alarmState = 2
 
     if ("-" in areaKey):
-        areaPV.value = alarmState
+        # wait for subArea fixed here
+        areaPV.put(alarmState, wait=True, timeout=0.01)
         if (fromColWatch):
             # wait for subArea to evaluate before topArea
-            sleep(0.01)
+            sleep(0.005)
             # if from col watch also reasses top area
             evaluateAreaPVs(areaKey.split("-")[0])
     else:
@@ -150,17 +169,34 @@ def evaluateTopArea(topArea, alarmState):
     areaPV = areaPVDict[topArea]
     alarmState = alarmState
 
-    # print(isAlarm, isAcked)
+    # to catch in alarm state to negate a higher level ack state
+    # no need to catch invalid alarm as it is highest ranked
+    minorAlarm = False
+    majorAlarm = False
+    ackStates = [1, 3, 5]
 
     for area in areaList:
         if ("-" in area):
             if area.startswith(topArea):
                 pv = areaPVDict[area]
+                val = pv.value
                 # print(pv, pv.value)
-                if (pv.value > alarmState):
-                    alarmState = pv.value
+                if (val > alarmState):
+                    alarmState = val
+                if(val == 2):
+                    minorAlarm = True
+                elif(val == 4):
+                    majorAlarm = True
 
-    areaPV.value = alarmState
+    # active alarm always supercedes acked state alarm
+    if alarmState in ackStates:
+        # major alarm takes precedence
+        if(majorAlarm):
+            alarmState = 4
+        elif(minorAlarm):
+            alarmState = 2
+
+    areaPV.put(alarmState, wait=True, timeout=0.01)
 
 
 def getKeys(pvname):
