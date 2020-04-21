@@ -43,7 +43,7 @@ const styles = theme => ({
         maxHeight: '90vh',
     },
     table: {
-        maxHeight: '80vh',
+        maxHeight: '50vh',
     },
     disabled: {
         background: 'grey',
@@ -88,7 +88,7 @@ class AlarmTable extends Component {
         };
 
         return (
-            <TableContainer component={Paper} className={classes.table}>
+            <TableContainer component={Paper} style={{maxHeight:this.props.maxHeight}}>
                 <Table aria-label="simple table" stickyHeader size="small">
                     <TableHead>
                         <TableRow>
@@ -154,6 +154,7 @@ class AlarmTable extends Component {
                                             hover={this.props.areaEnabled[areaName]}
                                             onContextMenu={event => this.props.tableItemRightClick(event, areaAlarmName)}
                                             selected={this.props.alarmRowSelected[areaAlarmName]}
+                                            onClick={event => this.props.tableRowClick(event, areaAlarms[areaAlarmName]["name"])}
                                         >
                                             <Menu
                                                 keepMounted

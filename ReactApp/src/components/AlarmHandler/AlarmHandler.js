@@ -16,6 +16,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 import AlarmList from './AlarmList';
 import AlarmTable from './AlarmTable';
+import AlarmLog from './AlarmLog';
 
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import IconButton from '@material-ui/core/IconButton';
@@ -66,6 +67,9 @@ class AlarmHandler extends Component {
         this.alarmPVDict = {}
         this.areaPVDict = {}
         this.state = {
+            alarmLogExpand: false,
+            alarmLogIsExpanded: false,
+            alarmLogSelectedName: '',
             moreVertMenuShow: false,
             moreVertAchorEl: null,
             alarmDebug: false,
@@ -108,6 +112,15 @@ class AlarmHandler extends Component {
 
     handleDoNothing = () => {
 
+    }
+
+    handleExpansionComplete = (expanded) => {
+        this.setState({ alarmLogIsExpanded: expanded })
+    }
+
+    handleExpandAlarmLogPanel = (event, panelName) => {
+        const alarmLogExpand = this.state.alarmLogExpand
+        this.setState({ alarmLogExpand: alarmLogExpand ? false : panelName })
     }
 
     // handleSetAckField = (value) => {
@@ -240,6 +253,10 @@ class AlarmHandler extends Component {
             }
         })
 
+    }
+
+    handleTableRowClick = (event, alarmName) => {
+        this.setState({ alarmLogSelectedName: alarmName })
     }
 
     handleTableItemRightClick = (event, index) => {
@@ -376,7 +393,7 @@ class AlarmHandler extends Component {
         }
 
         // console.log(this.state.areaSubAreaOpen)
-        this.setState({ areaSelectedIndex: index, areaSelectedName: areaSelectedName })
+        this.setState({ areaSelectedIndex: index, areaSelectedName: areaSelectedName, alarmLogSelectedName: areaSelectedName })
     };
 
     handleNewDbPVsList = (msg) => {
@@ -439,7 +456,7 @@ class AlarmHandler extends Component {
                 // console.log("First mount update selection")
                 const areaSelectedIndex = areaNames[0]["area"]
                 const areaSelectedName = areaNames[0]["area"]
-                this.setState({ areaSubAreaOpen: areaSubAreaOpen, areaSelectedIndex: areaSelectedIndex, areaSelectedName: areaSelectedName })
+                this.setState({ areaSubAreaOpen: areaSubAreaOpen, areaSelectedIndex: areaSelectedIndex, areaSelectedName: areaSelectedName, alarmLogSelectedName: areaSelectedName })
             }
             // console.log(lastAlarm)
             this.setState({ lastAlarm })
@@ -619,6 +636,15 @@ class AlarmHandler extends Component {
             displayAlarmList = displayAlarmList && value
         }
 
+        let alarmTableMaxHeight = null
+        let alarmLogMaxHeight = '30vh'
+        if (this.state.alarmLogExpand || this.state.alarmLogIsExpanded) {
+            alarmTableMaxHeight = '40vh'
+        }
+        else {
+            alarmTableMaxHeight = '75vh'
+        }
+
 
         // console.log(this.state.alarmIOCPVPrefix)
 
@@ -687,9 +713,10 @@ class AlarmHandler extends Component {
                                         direction="row"
                                         justify="flex-start"
                                         alignItems="stretch"
-                                        spacing={2}>
+                                        spacing={2}
+                                    >
                                         <Grid item xs={12}>
-                                            <div style={{ paddingTop: 16, fontSize: 16, fontWeight: 'bold' }}>Alarm Areas</div>
+                                            <div style={{ paddingTop: 8, fontSize: 16, fontWeight: 'bold' }}>ALARM AREAS</div>
                                         </Grid>
                                         <Grid item xs={12}>
                                             {this.state.areaNames ?
@@ -722,37 +749,61 @@ class AlarmHandler extends Component {
                             </Grid>}
                         {displayAlarmTable ?
                             <Grid item xs={10} style={{ paddingRight: 32 }}>
-                                <Card className={classes.card}>
-                                    <Grid
-                                        container
-                                        direction="row"
-                                        justify="flex-start"
-                                        alignItems="stretch"
-                                        spacing={2}>
-                                        <Grid item xs={12}>
-                                            <div style={{ paddingTop: 16, fontSize: 16, fontWeight: 'bold' }}>{areaSelectedName}</div>
-                                        </Grid>
-                                        <Grid item xs={12}>
-                                            {this.state.areaNames
-                                                ? <AlarmTable
-                                                    debug={this.state.alarmDebug}
-                                                    alarmPVDict={this.state.alarmPVDict}
-                                                    alarmRowSelected={this.state.alarmRowSelected}
-                                                    alarmAcknowledge={this.handleAlarmAcknowledge}
-                                                    alarmContextClose={this.handleAlarmContextClose}
-                                                    alarmContextOpen={this.state.alarmContextOpen}
-                                                    areaSelectedIndex={this.state.areaSelectedIndex}
-                                                    areaAlarms={this.state.areaAlarms}
-                                                    contextMouseX={this.state.contextMouseX}
-                                                    contextMouseY={this.state.contextMouseY}
-                                                    itemChecked={this.handleTableItemCheck}
-                                                    areaEnabled={this.state.areaEnabled}
-                                                    tableItemRightClick={this.handleTableItemRightClick}
-                                                />
-                                                : "No data from database"}
-                                        </Grid>
+                                <Grid
+                                    container
+                                    direction="row"
+                                    justify="flex-start"
+                                    alignItems="stretch"
+                                    spacing={2}>
+                                    <Grid item xs={12}>
+                                        <Card className={classes.card}>
+                                            <Grid
+                                                container
+                                                direction="row"
+                                                justify="flex-start"
+                                                alignItems="stretch"
+                                                spacing={2}
+                                            >
+                                                <Grid item xs={12}>
+                                                    <div style={{ paddingTop: 8, fontSize: 16, fontWeight: 'bold' }}>{`ALARM TABLE: ${areaSelectedName}`}</div>
+                                                </Grid>
+                                                <Grid item xs={12}>
+                                                    {this.state.areaNames
+                                                        ? <AlarmTable
+                                                            debug={this.state.alarmDebug}
+                                                            alarmPVDict={this.state.alarmPVDict}
+                                                            alarmRowSelected={this.state.alarmRowSelected}
+                                                            alarmAcknowledge={this.handleAlarmAcknowledge}
+                                                            alarmContextClose={this.handleAlarmContextClose}
+                                                            alarmContextOpen={this.state.alarmContextOpen}
+                                                            areaSelectedIndex={this.state.areaSelectedIndex}
+                                                            areaAlarms={this.state.areaAlarms}
+                                                            contextMouseX={this.state.contextMouseX}
+                                                            contextMouseY={this.state.contextMouseY}
+                                                            itemChecked={this.handleTableItemCheck}
+                                                            areaEnabled={this.state.areaEnabled}
+                                                            tableItemRightClick={this.handleTableItemRightClick}
+                                                            maxHeight={alarmTableMaxHeight}
+                                                            tableRowClick={this.handleTableRowClick}
+                                                        />
+                                                        : "No data from database"}
+                                                </Grid>
+                                            </Grid>
+                                        </Card>
                                     </Grid>
-                                </Card>
+                                    <Grid item xs={12}>
+                                        <Card className={classes.card}>
+                                            <AlarmLog
+                                                expand={this.state.alarmLogExpand}
+                                                expandAlarmLogPanel={this.handleExpandAlarmLogPanel}
+                                                alarmLogSelectedName={this.state.alarmLogSelectedName}
+                                                maxHeight={alarmLogMaxHeight}
+                                                expansionComplete={this.handleExpansionComplete}
+                                            />
+                                        </Card>
+                                    </Grid>
+                                </Grid>
+
                             </Grid>
                             :
                             <Grid item xs={10} style={{ paddingRight: 32 }}>
