@@ -23,10 +23,6 @@ import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
 import NotificationsOffIcon from '@material-ui/icons/NotificationsOff';
 import DoneAllIcon from '@material-ui/icons/DoneAll';
 
-function isEmpty(obj) {
-    return Object.keys(obj).length === 0;
-}
-
 // Styles
 const styles = theme => ({
     root: {
@@ -41,27 +37,47 @@ const styles = theme => ({
     nested: {
         paddingLeft: theme.spacing(4),
     },
-    // deepOrange['400']
-    // red['800']
-    alarm: {
+    majorAlarm: {
         background: red['800'],
         color: 'white',
         '&:hover': {
             color: red['500']
         }
     },
-    alarmSelected: {
+    majorAlarmSelected: {
         color: red['500']
     },
-    acked: {
+    majorAlarmAcked: {
+        // red['800'] = #c62828 = rgb(198,40,40)
+        background: 'rgba(198,40,40,0.3)',
+        color: 'white',
+        '&:hover': {
+            color: 'rgba(244,67,54,0.8)'
+        }
+    },
+    majorAlarmAckedSelected: {
+        color: 'rgba(244,67,54,0.8)'
+    },
+    minorAlarm: {
         background: deepOrange['400'],
         color: 'white',
         '&:hover': {
             color: deepOrange['200']
         }
     },
-    ackedSelected: {
+    minorAlarmSelected: {
         color: deepOrange['200']
+    },
+    minorAlarmAcked: {
+        // deepOrange['400'] = #ff7043 = rgb(255,112,67)
+        background: 'rgba(255,112,67,0.3)',
+        color: 'white',
+        '&:hover': {
+            color: 'rgba(255,171,145,0.8)'
+        }
+    },
+    minorAlarmAckedSelected: {
+        color: 'rgba(255,171,145,0.8)'
     },
     disabled: {
         background: 'grey',
@@ -111,12 +127,24 @@ class AlarmList extends Component {
                                                 onClick={event => this.props.listItemClick(event, `${area["area"]}`)}
                                                 onContextMenu={event => this.props.listItemRightClick(event, `${area["area"]}`)}
 
+                                                // field(ZRST, "NO_ALARM")
+                                                // field(ONST, "MINOR_ACKED")
+                                                // field(TWST, "MINOR")
+                                                // field(THST, "MAJOR_ACKED")
+                                                // field(FRST, "MAJOR")
+                                                // field(FVST, "INVALID_ACKED")
+                                                // field(SXST, "INVALID")
+
                                                 classes={(this.props.areaEnabled[`${area["area"]}`]
-                                                    ? this.props.areaPVDict[`${area["area"]}`] == 0
-                                                        ? { root: classes.alarm, selected: classes.alarmSelected }
-                                                        : this.props.areaPVDict[`${area["area"]}`] == 1
-                                                            ? { root: classes.acked, selected: classes.ackedSelected }
-                                                            : {}
+                                                    ? this.props.areaPVDict[`${area["area"]}`] == 6 || this.props.areaPVDict[`${area["area"]}`] == 4
+                                                        ? { root: classes.majorAlarm, selected: classes.majorAlarmSelected }
+                                                        : this.props.areaPVDict[`${area["area"]}`] == 5 || this.props.areaPVDict[`${area["area"]}`] == 3
+                                                            ? { root: classes.majorAlarmAcked, selected: classes.majorAlarmAckedSelected }
+                                                            : this.props.areaPVDict[`${area["area"]}`] == 2
+                                                                ? { root: classes.minorAlarm, selected: classes.minorAlarmSelected }
+                                                                : this.props.areaPVDict[`${area["area"]}`] == 1
+                                                                    ? { root: classes.minorAlarmAcked, selected: classes.minorAlarmAckedSelected }
+                                                                    : {}    // noAlarm
                                                     : { root: classes.disabled, selected: classes.disabledSelected }
                                                 )}
                                             >
@@ -176,12 +204,26 @@ class AlarmList extends Component {
                                                                             selected={this.props.areaSelectedIndex === `${area["area"]}-${subArea}`}
                                                                             onClick={event => this.props.listItemClick(event, `${area["area"]}-${subArea}`)}
                                                                             onContextMenu={event => this.props.listItemRightClick(event, `${area["area"]}-${subArea}`)}
+
+                                                                            // classes={(this.props.areaEnabled[`${area["area"]}-${subArea}`]
+                                                                            //     ? this.props.areaPVDict[`${area["area"]}-${subArea}`] == 0
+                                                                            //         ? { root: classes.majorAlarm, selected: classes.majorAlarmSelected }
+                                                                            //         : this.props.areaPVDict[`${area["area"]}-${subArea}`] == 1
+                                                                            //             ? { root: classes.minorAlarm, selected: classes.minorAlarmSelected }
+                                                                            //             : {}
+                                                                            //     : { root: classes.disabled, selected: classes.disabledSelected }
+                                                                            // )}
+
                                                                             classes={(this.props.areaEnabled[`${area["area"]}-${subArea}`]
-                                                                                ? this.props.areaPVDict[`${area["area"]}-${subArea}`] == 0
-                                                                                    ? { root: classes.alarm, selected: classes.alarmSelected }
-                                                                                    : this.props.areaPVDict[`${area["area"]}-${subArea}`] == 1
-                                                                                        ? { root: classes.acked, selected: classes.ackedSelected }
-                                                                                        : {}
+                                                                                ? this.props.areaPVDict[`${area["area"]}-${subArea}`] == 6 || this.props.areaPVDict[`${area["area"]}-${subArea}`] == 4
+                                                                                    ? { root: classes.majorAlarm, selected: classes.majorAlarmSelected }
+                                                                                    : this.props.areaPVDict[`${area["area"]}-${subArea}`] == 5 || this.props.areaPVDict[`${area["area"]}-${subArea}`] == 3
+                                                                                        ? { root: classes.majorAlarmAcked, selected: classes.majorAlarmAckedSelected }
+                                                                                        : this.props.areaPVDict[`${area["area"]}-${subArea}`] == 2
+                                                                                            ? { root: classes.minorAlarm, selected: classes.minorAlarmSelected }
+                                                                                            : this.props.areaPVDict[`${area["area"]}-${subArea}`] == 1
+                                                                                                ? { root: classes.minorAlarmAcked, selected: classes.minorAlarmAckedSelected }
+                                                                                                : {}    // noAlarm
                                                                                 : { root: classes.disabled, selected: classes.disabledSelected }
                                                                             )}
                                                                         >

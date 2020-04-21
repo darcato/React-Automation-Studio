@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import TextInput from '../BaseComponents/TextInput';
-import TextUpdate from '../BaseComponents/TextUpdate';
+import TextUpdateAH from './TextUpdateAH';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -45,16 +45,6 @@ const styles = theme => ({
     table: {
         maxHeight: '80vh',
     },
-    alarm: {
-        background: red['A200'],
-        color: 'white',
-        fontWeight: 'bold'
-    },
-    noAlarm: {
-        background: lightGreen['A200'],
-        color: 'black',
-        fontWeight: 'bold'
-    },
     disabled: {
         background: 'grey',
         color: grey['400'],
@@ -90,10 +80,11 @@ class AlarmTable extends Component {
         let currSubArea = ""
         let newSubArea = false
 
-        let textFieldClasses = { 
-            TextFieldSeverity0: classes.TextFieldSeverityDisabled, 
-            TextFieldSeverity1: classes.TextFieldSeverityDisabled,
-            TextFieldSeverity2: classes.TextFieldSeverityDisabled
+        let textFieldClasses = {
+            majorAlarm: classes.TextFieldSeverityDisabled,
+            majorAlarmAcked: classes.TextFieldSeverityDisabled,
+            minorAlarm: classes.TextFieldSeverityDisabled,
+            minorAlarmAcked: classes.TextFieldSeverityDisabled
         };
 
         return (
@@ -211,7 +202,7 @@ class AlarmTable extends Component {
                                             >
 
                                                 <TableCell align="left">
-                                                    <TextUpdate
+                                                    <TextUpdateAH
                                                         pv={'pva://' + areaAlarms[areaAlarmName]["name"] + ".NAME"}
                                                         disableContextMenu={true}
 
@@ -223,14 +214,15 @@ class AlarmTable extends Component {
                                             <TableCell align="center">
                                                 {this.props.areaEnabled[areaName]
                                                     ? areaAlarms[areaAlarmName]["enable"]
-                                                        ? <TextUpdate
+                                                        ?
+                                                        <TextUpdateAH
                                                             pv={'pva://' + "alarmIOC:" + areaAlarms[areaAlarmName]["name"] + "A"}
                                                             useStringValue={true}
                                                             alarmSensitive={true}
                                                             disableContextMenu={true}
                                                         />
                                                         : <div className={classes.disabled}>
-                                                            <TextUpdate
+                                                            <TextUpdateAH
                                                                 pv={'pva://' + "alarmIOC:" + areaAlarms[areaAlarmName]["name"] + "A"}
                                                                 useStringValue={true}
                                                                 alarmSensitive={true}
@@ -239,7 +231,7 @@ class AlarmTable extends Component {
                                                             />
                                                         </div>
                                                     : <div className={classes.disabled}>
-                                                        <TextUpdate
+                                                        <TextUpdateAH
                                                             pv={'pva://' + "alarmIOC:" + areaAlarms[areaAlarmName]["name"] + "A"}
                                                             useStringValue={true}
                                                             alarmSensitive={true}
@@ -250,25 +242,25 @@ class AlarmTable extends Component {
                                                 }
                                             </TableCell>
                                             <TableCell align="left">
-                                                <TextUpdate
+                                                <TextUpdateAH
                                                     pv={'pva://' + "alarmIOC:" + areaAlarms[areaAlarmName]["name"] + "V"}
                                                     disableContextMenu={true}
                                                 />
                                             </TableCell>
                                             <TableCell align="left">
-                                                <TextUpdate
+                                                <TextUpdateAH
                                                     pv={'pva://' + "alarmIOC:" + areaAlarms[areaAlarmName]["name"] + "T"}
                                                     disableContextMenu={true}
                                                 /></TableCell>
                                             <TableCell align="left">
-                                                <TextUpdate
+                                                <TextUpdateAH
                                                     pv={'pva://' + "alarmIOC:" + areaAlarms[areaAlarmName]["name"] + "K"}
                                                     disableContextMenu={true}
                                                 />
                                             </TableCell>
                                             <TableCell align="center">
                                                 <Checkbox
-                                                    style={{ padding: 0 }}
+                                                    style={{ padding: 0, margin: 0 }}
                                                     disabled={!this.props.areaEnabled[areaName]}
                                                     value={areaAlarms[areaAlarmName]["enable"]}
                                                     color="primary"
@@ -278,7 +270,7 @@ class AlarmTable extends Component {
                                             </TableCell>
                                             <TableCell align="center">
                                                 <Checkbox
-                                                    style={{ padding: 0 }}
+                                                    style={{ padding: 0, margin: 0 }}
                                                     disabled={!this.props.areaEnabled[areaName]}
                                                     value={areaAlarms[areaAlarmName]["latch"]}
                                                     color="primary"
@@ -288,7 +280,7 @@ class AlarmTable extends Component {
                                             </TableCell>
                                             <TableCell align="center">
                                                 <Checkbox
-                                                    style={{ padding: 0 }}
+                                                    style={{ padding: 0, margin: 0 }}
                                                     disabled={!this.props.areaEnabled[areaName]}
                                                     value={areaAlarms[areaAlarmName]["notify"]}
                                                     color="primary"
