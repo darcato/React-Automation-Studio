@@ -25,6 +25,14 @@ import ContactPhoneIcon from '@material-ui/icons/ContactPhone';
 import InputIcon from '@material-ui/icons/Input';
 import NotInterestedIcon from '@material-ui/icons/NotInterested';
 
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
+// import Paper from '@material-ui/core/Paper';
+// import Slide from '@material-ui/core/Slide';
+
 function isEmpty(obj) {
     return Object.keys(obj).length === 0;
 }
@@ -68,7 +76,7 @@ class AlarmHandler extends Component {
         this.areaPVDict = {}
         this.state = {
             alarmLogExpand: true,
-            alarmLogIsExpanded: true,
+            alarmTableExpand: true,
             alarmLogSelectedName: '',
             moreVertMenuShow: false,
             moreVertAchorEl: null,
@@ -114,13 +122,15 @@ class AlarmHandler extends Component {
 
     }
 
-    handleExpansionComplete = (expanded) => {
-        this.setState({ alarmLogIsExpanded: expanded })
-    }
-
-    handleExpandAlarmLogPanel = () => {
+    handleExpandPanel = (panelName) => {
+        const alarmTableExpand = this.state.alarmTableExpand
         const alarmLogExpand = this.state.alarmLogExpand
-        this.setState({ alarmLogExpand: alarmLogExpand ? false : true })
+        if (panelName === 'alarmTable') {
+            this.setState({ alarmTableExpand: alarmTableExpand ? false : true })
+        }
+        else if (panelName === 'alarmLog') {
+            this.setState({ alarmLogExpand: alarmLogExpand ? false : true })
+        }
     }
 
     // handleSetAckField = (value) => {
@@ -636,15 +646,18 @@ class AlarmHandler extends Component {
             displayAlarmList = displayAlarmList && value
         }
 
-        let alarmTableMaxHeight = null
-        let alarmLogMaxHeight = '30vh'
-        if (this.state.alarmLogExpand || this.state.alarmLogIsExpanded) {
-            alarmTableMaxHeight = '40vh'
+        let alarmTableHeight = null
+        let alarmLogHeight = null
+        if (this.state.alarmTableExpand && this.state.alarmLogExpand) {
+            alarmTableHeight = '40vh'
+            alarmLogHeight = '30vh'
         }
-        else {
-            alarmTableMaxHeight = '75vh'
+        else if (this.state.alarmTableExpand && !this.state.alarmLogExpand) {
+            alarmTableHeight = '75vh'
         }
-
+        else if (!this.state.alarmTableExpand && this.state.alarmLogExpand) {
+            alarmLogHeight = '75vh'
+        }
 
         // console.log(this.state.alarmIOCPVPrefix)
 
@@ -695,7 +708,6 @@ class AlarmHandler extends Component {
                             </MenuItem>
                         </Menu>
                     </div>
-
                     <Grid
                         container
                         direction="row"
@@ -704,7 +716,6 @@ class AlarmHandler extends Component {
                         spacing={2}
                         style={{ paddingLeft: 50 }}
                     >
-
                         {displayAlarmList
                             ? <Grid item xs={2}>
                                 <Card className={classes.card}>
@@ -749,61 +760,69 @@ class AlarmHandler extends Component {
                             </Grid>}
                         {displayAlarmTable ?
                             <Grid item xs={10} style={{ paddingRight: 32 }}>
-                                <Grid
-                                    container
-                                    direction="row"
-                                    justify="flex-start"
-                                    alignItems="stretch"
-                                    spacing={2}>
-                                    <Grid item xs={12}>
-                                        <Card className={classes.card}>
-                                            <Grid
-                                                container
-                                                direction="row"
-                                                justify="flex-start"
-                                                alignItems="stretch"
-                                                spacing={2}
-                                            >
-                                                <Grid item xs={12}>
-                                                    <div style={{ paddingTop: 8, fontSize: 16, fontWeight: 'bold' }}>{`ALARM TABLE: ${areaSelectedName}`}</div>
-                                                </Grid>
-                                                <Grid item xs={12}>
-                                                    {this.state.areaNames
-                                                        ? <AlarmTable
-                                                            debug={this.state.alarmDebug}
-                                                            alarmPVDict={this.state.alarmPVDict}
-                                                            alarmRowSelected={this.state.alarmRowSelected}
-                                                            alarmAcknowledge={this.handleAlarmAcknowledge}
-                                                            alarmContextClose={this.handleAlarmContextClose}
-                                                            alarmContextOpen={this.state.alarmContextOpen}
-                                                            areaSelectedIndex={this.state.areaSelectedIndex}
-                                                            areaAlarms={this.state.areaAlarms}
-                                                            contextMouseX={this.state.contextMouseX}
-                                                            contextMouseY={this.state.contextMouseY}
-                                                            itemChecked={this.handleTableItemCheck}
-                                                            areaEnabled={this.state.areaEnabled}
-                                                            tableItemRightClick={this.handleTableItemRightClick}
-                                                            maxHeight={alarmTableMaxHeight}
-                                                            tableRowClick={this.handleTableRowClick}
-                                                        />
-                                                        : "No data from database"}
-                                                </Grid>
-                                            </Grid>
-                                        </Card>
-                                    </Grid>
-                                    <Grid item xs={12}>
+                                <ExpansionPanel
+                                    expanded={this.state.alarmTableExpand}
+                                    onChange={() => this.handleExpandPanel('alarmTable')}
+                                >
+                                    <ExpansionPanelSummary
+                                        expandIcon={<ExpandMoreIcon />}
+                                        aria-controls="panel1bh-content"
+                                        id="panel1bh-header"
+                                    >
+                                        <div style={{ display: 'flex', width: '100%' }}>
+                                            <div style={{ fontSize: 16, fontWeight: 'bold', flexGrow: 20 }}>{`ALARM TABLE: ${areaSelectedName}`}</div>
+                                            <div style={{ fontSize: 16, fontWeight: 'bold', flexGrow: 1 }}>{this.state.alarmTableExpand ? '[click to hide]' : '[click to show]'}</div>
+                                        </div>
 
+                                    </ExpansionPanelSummary>
+                                    <ExpansionPanelDetails>
+                                        {this.state.areaNames
+                                            ? <AlarmTable
+                                                debug={this.state.alarmDebug}
+                                                alarmPVDict={this.state.alarmPVDict}
+                                                alarmRowSelected={this.state.alarmRowSelected}
+                                                alarmAcknowledge={this.handleAlarmAcknowledge}
+                                                alarmContextClose={this.handleAlarmContextClose}
+                                                alarmContextOpen={this.state.alarmContextOpen}
+                                                areaSelectedIndex={this.state.areaSelectedIndex}
+                                                areaAlarms={this.state.areaAlarms}
+                                                contextMouseX={this.state.contextMouseX}
+                                                contextMouseY={this.state.contextMouseY}
+                                                itemChecked={this.handleTableItemCheck}
+                                                areaEnabled={this.state.areaEnabled}
+                                                tableItemRightClick={this.handleTableItemRightClick}
+                                                height={alarmTableHeight}
+                                                tableRowClick={this.handleTableRowClick}
+                                            />
+                                            : "No data from database"}
+                                    </ExpansionPanelDetails>
+                                </ExpansionPanel>
+                                <ExpansionPanel
+                                    expanded={this.state.alarmLogExpand}
+                                    onChange={() => this.handleExpandPanel('alarmLog')}
+                                >
+                                    <ExpansionPanelSummary
+                                        expandIcon={<ExpandMoreIcon />}
+                                        aria-controls="panel1bh-content"
+                                        id="panel1bh-header"
+                                    >
+                                        <div style={{ display: 'flex', width: '100%' }}>
+                                            <div style={{ fontSize: 16, fontWeight: 'bold', flexGrow: 20 }}>{`ALARM LOG: ${this.state.alarmLogSelectedName}`}</div>
+                                            <div style={{ fontSize: 16, fontWeight: 'bold', flexGrow: 1 }}>{this.state.alarmLogExpand ? '[click to hide]' : '[click to show]'}</div>
+                                        </div>
+
+                                    </ExpansionPanelSummary>
+                                    <ExpansionPanelDetails>
                                         <AlarmLog
-                                            expand={this.state.alarmLogExpand}
-                                            expandAlarmLogPanel={this.handleExpandAlarmLogPanel}
-                                            alarmLogSelectedName={this.state.alarmLogSelectedName}
-                                            maxHeight={alarmLogMaxHeight}
-                                            expansionComplete={this.handleExpansionComplete}
+                                            height={alarmLogHeight}
                                         />
-
-                                    </Grid>
-                                </Grid>
-
+                                    </ExpansionPanelDetails>
+                                </ExpansionPanel>
+                                {/* <Slide direction="left" in={true} mountOnEnter unmountOnExit>
+                                    <Paper elevation={4} style={{ zIndex: 1, position: 'relative' }}>
+                                        Hello
+                                    </Paper>
+                                </Slide> */}
                             </Grid>
                             :
                             <Grid item xs={10} style={{ paddingRight: 32 }}>

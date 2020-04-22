@@ -17,8 +17,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
-import lightGreen from '@material-ui/core/colors/lightGreen';
-import red from '@material-ui/core/colors/red';
 import grey from '@material-ui/core/colors/grey';
 
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -40,10 +38,6 @@ const styles = theme => ({
         // overflowY: "hidden",
         width: '100%',
         overflowY: 'auto',
-        maxHeight: '90vh',
-    },
-    table: {
-        maxHeight: '50vh',
     },
     disabled: {
         background: 'grey',
@@ -88,8 +82,8 @@ class AlarmTable extends Component {
         };
 
         return (
-            <TableContainer component={Paper} style={{maxHeight:this.props.maxHeight}}>
-                <Table aria-label="simple table" stickyHeader size="small">
+            <TableContainer component={Paper} style={{ height: this.props.height }}>
+                <Table aria-label="Alarm Table" stickyHeader size="small">
                     <TableHead>
                         <TableRow>
                             {this.props.debug
