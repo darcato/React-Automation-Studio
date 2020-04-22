@@ -493,6 +493,111 @@ def databaseBroadcastRead(message):
         socketio.emit('redirectToLogIn',room=request.sid,namespace='/pvServer')
 
 
+@socketio.on('databaseReadWatchAndBroadcast', namespace='/pvServer')
+def databaseBroadcastRead(message):
+    global clientPVlist,REACT_APP_DisableLogin
+    dbURL= str(message['dbURL'])
+
+    #print("databaseRead: SSID: ",request.sid,' dbURL: ', dbURL)
+    #print("message:",str(message))
+    authenticated=False
+    if REACT_APP_DisableLogin:
+        authenticated=True
+        accessControl={'userAuthorised':True,'permissions':{'read':True,'write':True}}
+    else :
+        accessControl=AutheriseUserAndPermissions(message['clientAuthorisation'],dbURL)
+        authenticated=accessControl['userAuthorised']
+
+    if accessControl['userAuthorised'] :
+        if "mongodb://" in dbURL:
+
+    #        print("mongodb database connection request: ",dbURL)
+            str1=dbURL.replace("mongodb://","")
+            strings=  str1.split(':')
+            try:
+                Parametersstr=str1.split("Parameters:")[1]
+                parameters=json.loads(Parametersstr)
+            except:
+                raise Exception("Parameters are not defined")
+
+    #        print("Parameters:",str(parameters))
+            if(len(strings)>=3):
+                database= strings[0];
+                dbName=   strings[1];
+                colName=  strings[2];
+    #            print("database: ", database, "length: ", len(database))
+    #            print("dbName: "  ,   dbName, "length: ", len(dbName))
+    #            print("colName: " ,  colName, "length: ", len(colName))
+                ### must insert a better error detection here
+
+                if ((len(database)>0) and (len(dbName)>0) and (len(colName)>0)):
+                    write_access=False
+                    if(accessControl['permissions']['read']):
+                        if(accessControl['permissions']['write']):
+                            join_room(str(dbURL)+'rw')
+                            write_access=True
+                            #join_room(str(dbURL))
+                        else:
+                            join_room(str(dbURL)+'ro')
+                            write_access=False
+                            #join_room(str(dbURL))
+                        try:
+    #                        print("connecting: "+dbURL)
+                            try:
+                                databaseString="mongodb://"+ str(os.environ[database])+"/"
+                                replicaSetName=str(os.environ[database+"_REPLICA_SET_NAME"])
+                                myclient = pymongo.MongoClient(databaseString,serverSelectionTimeoutMS=10,replicaSet=replicaSetName)
+                                # Wait for MongoClient to discover the whole replica set and identify MASTER!
+                                time.sleep(0.1)
+                                #myclient.server_info()
+                            except pymongo.errors.ServerSelectionTimeoutError as err:
+                                print(err)
+                                return "Ack: Could not connect to MongoDB: "+str(dbURL)
+
+                            mydb = myclient[dbName]
+
+                            mycol=mydb[colName]
+                            try:
+                                query=parameters['query']
+                    #            print("using query:",query)
+                                X=mycol.find(query)
+                            except:
+                                X=mycol.find()
+
+
+                            #for x in X:
+                                #print(x)
+    #                        print("done: "+dbURL)
+
+
+                            data=dumps(X)
+
+
+                            eventName='databaseWatchData:'+dbURL;
+    #                        print("eventName",eventName)
+                            d={'dbURL': dbURL,'write_access':write_access,'data': data}
+                            socketio.emit(eventName,d,str(dbURL)+'rw',namespace='/pvServer')
+                            d={'dbURL': dbURL,'write_access':False,'data': data}
+                            socketio.emit(eventName,d,str(dbURL)+'ro',namespace='/pvServer')
+                            return 'OK'
+                        except:
+                            print("could not connect to MongoDB: ",dbURL)
+                            return "Ack: Could not connect to MongoDB: "+str(dbURL)
+                else:
+                    print("Malformed database URL, must be in format: mongodb://databaseID:database:collection")
+            else:
+                print("Malformed database URL, must be in format: mongodb://databaseID:database:collection")
+
+
+
+
+
+        else:
+            print("Unknown PV type")
+    else:
+        socketio.emit('redirectToLogIn',room=request.sid,namespace='/pvServer')
+
+
 @socketio.on('databaseUpdateOne', namespace='/pvServer')
 def databaseUpdateOne(message):
     global clientPVlist,REACT_APP_DisableLogin

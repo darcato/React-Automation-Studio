@@ -24,6 +24,8 @@ services:
       - ALARM_DATABASE_REPLICA_SET_NAME=devrs
       - LOADSAVE_DATABASE=localhost
       - LOADSAVE_DATABASE_REPLICA_SET_NAME=devrs
+      - WATCH_DEBUG_DATABASE=localhost
+      - WATCH_DEBUG_DATABASE_REPLICA_SET_NAME=devrs
     build:
       context: ./
       args: # Environment variables available at build-time
