@@ -67,8 +67,8 @@ class AlarmHandler extends Component {
         this.alarmPVDict = {}
         this.areaPVDict = {}
         this.state = {
-            alarmLogExpand: false,
-            alarmLogIsExpanded: false,
+            alarmLogExpand: true,
+            alarmLogIsExpanded: true,
             alarmLogSelectedName: '',
             moreVertMenuShow: false,
             moreVertAchorEl: null,
@@ -118,9 +118,9 @@ class AlarmHandler extends Component {
         this.setState({ alarmLogIsExpanded: expanded })
     }
 
-    handleExpandAlarmLogPanel = (event, panelName) => {
+    handleExpandAlarmLogPanel = () => {
         const alarmLogExpand = this.state.alarmLogExpand
-        this.setState({ alarmLogExpand: alarmLogExpand ? false : panelName })
+        this.setState({ alarmLogExpand: alarmLogExpand ? false : true })
     }
 
     // handleSetAckField = (value) => {
@@ -792,15 +792,15 @@ class AlarmHandler extends Component {
                                         </Card>
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <Card className={classes.card}>
-                                            <AlarmLog
-                                                expand={this.state.alarmLogExpand}
-                                                expandAlarmLogPanel={this.handleExpandAlarmLogPanel}
-                                                alarmLogSelectedName={this.state.alarmLogSelectedName}
-                                                maxHeight={alarmLogMaxHeight}
-                                                expansionComplete={this.handleExpansionComplete}
-                                            />
-                                        </Card>
+
+                                        <AlarmLog
+                                            expand={this.state.alarmLogExpand}
+                                            expandAlarmLogPanel={this.handleExpandAlarmLogPanel}
+                                            alarmLogSelectedName={this.state.alarmLogSelectedName}
+                                            maxHeight={alarmLogMaxHeight}
+                                            expansionComplete={this.handleExpansionComplete}
+                                        />
+
                                     </Grid>
                                 </Grid>
 

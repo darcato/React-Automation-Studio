@@ -31,8 +31,8 @@ class AlarmLog extends Component {
 
         return (
             <ExpansionPanel
-                expanded={this.props.expand === 'alarmPanel'}
-                onChange={event => this.props.expandAlarmLogPanel(event, 'alarmPanel')}
+                expanded={this.props.expand}
+                onChange={event => this.props.expandAlarmLogPanel()}
                 TransitionProps={{
                     onExited: () => { this.props.expansionComplete(false) },
                     onEntered: () => { this.props.expansionComplete(true) }
@@ -43,7 +43,11 @@ class AlarmLog extends Component {
                     aria-controls="panel1bh-content"
                     id="panel1bh-header"
                 >
-                    <div style={{ fontSize: 16, fontWeight: 'bold' }}>{`ALARM LOG: ${this.props.alarmLogSelectedName}`}</div>
+                    <div style={{ display: 'flex', width: '100%' }}>
+                        <div style={{ fontSize: 16, fontWeight: 'bold', flexGrow: 20 }}>{`ALARM LOG: ${this.props.alarmLogSelectedName}`}</div>
+                        <div style={{ fontSize: 16, fontWeight: 'bold', flexGrow: 1 }}>{this.props.expand ? '[click to hide]' : '[click to show]'}</div>
+                    </div>
+
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails>
                     <div style={{ maxHeight: this.props.maxHeight, overflow: 'auto' }}>
