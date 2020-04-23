@@ -86,14 +86,14 @@ def propAreaAlarms(pvname, value):
         areaKey = getKeys(pvname)[0]
         areaEnable, subAreaEnable, pvEnable = getEnables(pvname)
 
-        if ("-" in areaKey):
-            subArea = areaKey.split("-")[1]
-            areaKey = areaKey.split("-")[0]
+        if ("=" in areaKey):
+            subArea = areaKey.split("=")[1]
+            areaKey = areaKey.split("=")[0]
 
             enable = areaEnable and subAreaEnable and pvEnable
 
             if (enable):
-                evaluateAreaPVs(areaKey + "-" + subArea)
+                evaluateAreaPVs(areaKey + "=" + subArea)
                 # wait for subArea to evaluate before topArea
                 sleep(0.005)
                 # Fixed
@@ -123,7 +123,7 @@ def evaluateAreaPVs(areaKey, fromColWatch=False):
     ackStates = [1, 3, 5]
 
     for key in pvDict.keys():
-        if (re.sub(r"-pv\d+", "", key) == areaKey):
+        if (re.sub(r"=pv\d+", "", key) == areaKey):
             # exact match of area key
             val = alarmDict[pvDict[key].pvname]["A"].value
             areaEnable, subAreaEnable, pvEnable = getEnables(
@@ -152,14 +152,14 @@ def evaluateAreaPVs(areaKey, fromColWatch=False):
         elif(minorAlarm):
             alarmState = 2
 
-    if ("-" in areaKey):
+    if ("=" in areaKey):
         # wait for subArea fixed here
         areaPV.put(alarmState, wait=True, timeout=0.01)
         if (fromColWatch):
             # wait for subArea to evaluate before topArea
             sleep(0.005)
             # if from col watch also reasses top area
-            evaluateAreaPVs(areaKey.split("-")[0])
+            evaluateAreaPVs(areaKey.split("=")[0])
     else:
         # this is a top area
         evaluateTopArea(areaKey, alarmState)
@@ -176,8 +176,8 @@ def evaluateTopArea(topArea, alarmState):
     ackStates = [1, 3, 5]
 
     for area in areaList:
-        if ("-" in area):
-            if area.startswith(topArea):
+        if ("=" in area):
+            if (area.split("=")[0] == topArea):
                 pv = areaPVDict[area]
                 val = pv.value
                 # print(pv, pv.value)
@@ -203,7 +203,7 @@ def getKeys(pvname):
     key_list = list(areaDict.keys())
     val_list = list(areaDict.values())
     areaName = key_list[val_list.index(pvname)]
-    areaKey = re.sub(r"-pv\d+", "", areaName)
+    areaKey = re.sub(r"=pv\d+", "", areaName)
     pvKey = re.search(r"pv\d+", areaName).group(0)
     return areaKey, pvKey
 
@@ -211,9 +211,9 @@ def getKeys(pvname):
 def getEnables(pvname):
     areaKey, pvKey = getKeys(pvname)
 
-    if ("-" in areaKey):
+    if ("=" in areaKey):
         subAreaKey = subAreaDict[areaKey]
-        areaKey = areaKey.split("-")[0]
+        areaKey = areaKey.split("=")[0]
 
         doc = client[MONGO_INITDB_ALARM_DATABASE].pvs.find_one(
             {"area": areaKey})
@@ -246,7 +246,7 @@ def ackProcess(ackIndentifier, timestamp):
     # reset ack pv so you can ack same pv/area multiple times
     alarmDict["ACK_PV"].value = ""
     try:
-        re.search(r"-pv\d+", ackIndentifier).group(0)
+        re.search(r"=pv\d+", ackIndentifier).group(0)
         isPV = True
     except:
         isPV = False
@@ -255,8 +255,14 @@ def ackProcess(ackIndentifier, timestamp):
         ackAlarm(ackIndentifier, timestamp)
     else:
         # print("Area to be ACKed:",ackIndentifier)
+        # area or area=subArea
         for key in pvDict.keys():
-            if (key.startswith(ackIndentifier)):
+            # key is area | area=subArea | area=subArea=pv
+            # areaKey is area | area=subArea
+            areaKey = re.sub(r"=pv\d+", "", key)
+            if ("=" not in ackIndentifier):      # ackIndentifier is area
+                areaKey = areaKey.split("=")[0]  # areaKey is area
+            if(areaKey == ackIndentifier):
                 ackAlarm(key, timestamp)
 
 
@@ -268,14 +274,14 @@ def ackAlarm(ackIndentifier, timestamp):
     areaKey, pvKey = getKeys(pvname)
 
     if (alarmPVSev == 2 or alarmPVSev == 4 or alarmPVSev == 6):
-        # in minor, major or invalid state - valid state for ack
+        # in minor, major or invalid state, valid state for ack
         timestamp = datetime.fromtimestamp(timestamp).strftime(
             "%a, %d %b %Y at %H:%M:%S")
         # set ack time
         alarmDict[pvname]["K"].value = timestamp
-        if ("-" in areaKey):
+        if ("=" in areaKey):
             subAreaKey = subAreaDict[areaKey]
-            areaKey = areaKey.split("-")[0]
+            areaKey = areaKey.split("=")[0]
             # write to db
             client[MONGO_INITDB_ALARM_DATABASE].pvs.update_many(
                 {'area': areaKey}, {
@@ -371,9 +377,9 @@ def pvPrepareData(pvname, value, severity, timestamp):
 
     pvELN = []
 
-    if ("-" in areaKey):
+    if ("=" in areaKey):
         subAreaKey = subAreaDict[areaKey]
-        areaKey = areaKey.split("-")[0]
+        areaKey = areaKey.split("=")[0]
 
         doc = client[MONGO_INITDB_ALARM_DATABASE].pvs.find_one(
             {"area": areaKey})
@@ -455,9 +461,9 @@ def processPVAlarm(pvname, value, severity, timestamp, pvELN):
         # set alarm time
         alarmDict[pvname]["T"].value = timestamp
         # write to db
-        if ("-" in areaKey):
+        if ("=" in areaKey):
             subAreaKey = subAreaDict[areaKey]
-            areaKey = areaKey.split("-")[0]
+            areaKey = areaKey.split("=")[0]
             client[MONGO_INITDB_ALARM_DATABASE].pvs.update_many(
                 {'area': areaKey}, {
                     '$set': {
@@ -488,7 +494,7 @@ def getListOfPVNames():
             if ("subArea" in key):
                 for subAreaKey in area[key].keys():
                     if (subAreaKey == "name"):
-                        areaList.append(area["area"] + '-' +
+                        areaList.append(area["area"] + '=' +
                                         area[key][subAreaKey])
                     if (subAreaKey == "pvs"):
                         for pvKey in area[key][subAreaKey].keys():
@@ -522,15 +528,15 @@ def initSubPVDict(subArea, areaName):
     subAreaName = areaName
     for key in subArea.keys():
         if (key == "name"):
-            subAreaName = subAreaName + "-" + subArea[key]
+            subAreaName = subAreaName + "=" + subArea[key]
         if (key == "pvs"):
             for pvKey in subArea[key].keys():
                 pvname = subArea[key][pvKey]["name"]
                 pv = PV(pvname=pvname,
                         connection_timeout=0.001,
                         callback=onChanges)
-                pvDict[subAreaName + "-" + pvKey] = pv
-                areaDict[subAreaName + "-" +
+                pvDict[subAreaName + "=" + pvKey] = pv
+                areaDict[subAreaName + "=" +
                          pvKey] = subArea[key][pvKey]["name"]
 
 
@@ -546,10 +552,10 @@ def initPVDict():
                     pv = PV(pvname=pvname,
                             connection_timeout=0.001,
                             callback=onChanges)
-                    pvDict[areaName + "-" + pvKey] = pv
-                    areaDict[areaName + "-" + pvKey] = area[key][pvKey]["name"]
+                    pvDict[areaName + "=" + pvKey] = pv
+                    areaDict[areaName + "=" + pvKey] = area[key][pvKey]["name"]
             if ("subArea" in key):
-                subAreaDict[areaName + "-" + area[key]["name"]] = key
+                subAreaDict[areaName + "=" + area[key]["name"]] = key
                 initSubPVDict(area[key], areaName)
 
 
@@ -596,9 +602,9 @@ def initialiseAlarmIOC():
         areaKey, pvKey = getKeys(pvname)
         # print(areaKey, pvKey)
 
-        if ("-" in areaKey):
+        if ("=" in areaKey):
             subAreaKey = subAreaDict[areaKey]
-            areaKey = areaKey.split("-")[0]
+            areaKey = areaKey.split("=")[0]
 
             doc = client[MONGO_INITDB_ALARM_DATABASE].pvs.find_one(
                 {"area": areaKey})
@@ -713,8 +719,8 @@ def pvCollectionWatch():
                         topArea = doc.get("area")
                         # print(areaKey, "area enable changed!")
                         for area in areaList:
-                            if ("-" in area):
-                                if area.startswith(topArea):
+                            if ("=" in area):
+                                if (area.split("=")[0] == topArea):
                                     areaKey = area
                                     evaluateAreaPVs(areaKey, True)
                     elif ("pvs." in key and key.endswith(".enable")):
@@ -732,7 +738,7 @@ def pvCollectionWatch():
                         evaluateAreaPVs(areaKey, True)
                     elif (key.endswith(".enable")):
                         # subArea enable
-                        areaKey = doc.get("area") + "-" + doc.get(
+                        areaKey = doc.get("area") + "=" + doc.get(
                             key.split(".")[0])["name"]
                         # print(areaKey, "area enable changed!")
                         evaluateAreaPVs(areaKey, True)

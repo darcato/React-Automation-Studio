@@ -250,7 +250,7 @@ class AlarmHandler extends Component {
 
         // Check if it is a subArea
         // console.log(index)
-        if (index.includes("-")) {
+        if (index.includes("=")) {
             const subAreaId = this.state.areaSubAreaMongoId[index] + ".pvs." + alarm + "." + field
             newvalues = { '$set': { [subAreaId]: value } }
         }
@@ -282,10 +282,10 @@ class AlarmHandler extends Component {
 
     handleTableItemRightClick = (event, index) => {
         event.preventDefault();
-        const areaAlarmNameArray = index.split('-')
+        const areaAlarmNameArray = index.split('=')
         let areaName = null
         if (areaAlarmNameArray.length > 2) {
-            areaName = areaAlarmNameArray[0] + "-" + areaAlarmNameArray[1]
+            areaName = areaAlarmNameArray[0] + "=" + areaAlarmNameArray[1]
         }
         else {
             areaName = areaAlarmNameArray[0]
@@ -340,7 +340,7 @@ class AlarmHandler extends Component {
 
         // Check if it is a subArea
         // console.log(index)
-        if (index.includes("-")) {
+        if (index.includes("=")) {
             const subAreaId = this.state.areaSubAreaMongoId[index] + ".enable"
             newvalues = { '$set': { [subAreaId]: value } }
         }
@@ -389,32 +389,30 @@ class AlarmHandler extends Component {
     }
 
     handleListItemClick = (event, index) => {
-        // console.log("left click")
-        // console.log(index)
         const areaSubAreaOpen = {
             ...this.state.areaSubAreaOpen,
         }
-        Object.keys(areaSubAreaOpen).map(areaKey => {
-            if (areaKey !== index) {
-                areaSubAreaOpen[areaKey] = false
-            }
 
-        })
-
-        if (index === this.state.areaSelectedIndex || !this.state.areaSelectedIndex.includes(index)) {
-            areaSubAreaOpen[index] = !this.state.areaSubAreaOpen[index]
-        }
-
-        let areaSelectedName = index.split('-')
-        if (areaSelectedName.length > 1) {
+        let areaSelectedName = index.split('=')
+        if (areaSelectedName.length > 1) {                  // selected area is a subArea
             areaSelectedName = areaSelectedName[0] + " > " + areaSelectedName[1]
         }
-        else {
-            this.setState({ areaSubAreaOpen: areaSubAreaOpen })
+        else {                                              // selected area is an area
+            if (index === this.state.areaSelectedIndex) {   // selected same area twice
+                areaSubAreaOpen[index] = !this.state.areaSubAreaOpen[index]
+            }
+            else if (areaSelectedName[0] === this.state.areaSelectedIndex.split('=')[0]) {    // selected area of subArea
+                areaSubAreaOpen[index] = true
+            }
+            else {                                           // selected a different area
+                areaSubAreaOpen[this.state.areaSelectedIndex] = false   // set previous area to false
+                areaSubAreaOpen[index] = true                           // set current area to true
+            }
         }
 
         // console.log(this.state.areaSubAreaOpen)
         this.setState({ areaSelectedIndex: index, areaSelectedName: areaSelectedName, alarmLogSelectedName: areaSelectedName })
+        this.setState({ areaSubAreaOpen: areaSubAreaOpen })
     };
 
     handleNewDbPVsList = (msg) => {
@@ -445,8 +443,8 @@ class AlarmHandler extends Component {
                 areaMongoId[area["area"]] = area["_id"]["$oid"]
                 // Map alarms in area
                 Object.keys(area["pvs"]).map(alarmKey => {
-                    alarmContextOpen[`${area["area"]}-${alarmKey}`] = false
-                    alarmRowSelected[`${area["area"]}-${alarmKey}`] = false
+                    alarmContextOpen[`${area["area"]}=${alarmKey}`] = false
+                    alarmRowSelected[`${area["area"]}=${alarmKey}`] = false
                     lastAlarm = area["pvs"][alarmKey]["name"]
                 })
                 Object.keys(area).map(areaKey => {
@@ -454,13 +452,13 @@ class AlarmHandler extends Component {
                         areaNames.push({ "area": area[areaKey] })
                     }
                     else if (areaKey.includes("subArea")) {
-                        areaContextOpen[`${area["area"]}-${area[areaKey]["name"]}`] = false
-                        areaSubAreaMongoId[`${area["area"]}-${area[areaKey]["name"]}`] = areaKey
-                        areaMongoId[`${area["area"]}-${area[areaKey]["name"]}`] = area["_id"]["$oid"]
+                        areaContextOpen[`${area["area"]}=${area[areaKey]["name"]}`] = false
+                        areaSubAreaMongoId[`${area["area"]}=${area[areaKey]["name"]}`] = areaKey
+                        areaMongoId[`${area["area"]}=${area[areaKey]["name"]}`] = area["_id"]["$oid"]
                         // Map alarms in subarea
                         Object.keys(area[areaKey]["pvs"]).map(alarmKey => {
-                            alarmContextOpen[`${area["area"]}-${area[areaKey]["name"]}-${alarmKey}`] = false
-                            alarmRowSelected[`${area["area"]}-${area[areaKey]["name"]}-${alarmKey}`] = false
+                            alarmContextOpen[`${area["area"]}=${area[areaKey]["name"]}=${alarmKey}`] = false
+                            alarmRowSelected[`${area["area"]}=${area[areaKey]["name"]}=${alarmKey}`] = false
                             lastAlarm = area[areaKey]["pvs"][alarmKey]["name"]
                         })
                         if (areaNames[index]["subAreas"]) {
@@ -495,7 +493,7 @@ class AlarmHandler extends Component {
             Object.keys(area).map(areaKey => {
                 if (areaKey === "pvs") {
                     Object.keys(area[areaKey]).map(alarm => {
-                        areaAlarms[`${area["area"]}-${alarm}`] = area[areaKey][alarm]
+                        areaAlarms[`${area["area"]}=${alarm}`] = area[areaKey][alarm]
                     })
                 }
             })
@@ -504,13 +502,13 @@ class AlarmHandler extends Component {
             Object.keys(area).map(areaKey => {
                 if (areaKey.includes("subArea")) {
                     // Area enabled for subArea includes parent area
-                    areaEnabled[`${area["area"]}-${area[areaKey]["name"]}`] = area[areaKey]["enable"] && areaEnabled[area["area"]]
-                    lastArea = `${area["area"]}-${area[areaKey]["name"]}`
+                    areaEnabled[`${area["area"]}=${area[areaKey]["name"]}`] = area[areaKey]["enable"] && areaEnabled[area["area"]]
+                    lastArea = `${area["area"]}=${area[areaKey]["name"]}`
                     // map all alarms in subArea
                     Object.keys(area[areaKey]).map(subAreaKey => {
                         if (subAreaKey === "pvs") {
                             Object.keys(area[areaKey][subAreaKey]).map(alarm => {
-                                areaAlarms[`${area["area"]}-${area[areaKey]["name"]}-${alarm}`] = area[areaKey][subAreaKey][alarm]
+                                areaAlarms[`${area["area"]}=${area[areaKey]["name"]}=${alarm}`] = area[areaKey][subAreaKey][alarm]
                             })
                         }
                     })
@@ -584,7 +582,9 @@ class AlarmHandler extends Component {
 
     loadAlarmTable = () => {
         const timer = setTimeout(() => {
-            console.log('Auto load alarm table')
+            if (!this.state.loadAlarmTable) {
+                console.log('Warning: Auto load alarm table')
+            }
             const loadAlarmTable = this.state.loadAlarmTable
             for (const [key, value] of Object.entries(loadAlarmTable)) {
                 loadAlarmTable[key] = true
@@ -596,7 +596,9 @@ class AlarmHandler extends Component {
 
     loadAlarmList = () => {
         const timer = setTimeout(() => {
-            console.log('Auto load alarm list')
+            if (!this.state.loadAlarmList) {
+                console.log('Warning: Auto load alarm list')
+            }
             const loadAlarmList = this.state.loadAlarmList
             for (const [key, value] of Object.entries(loadAlarmList)) {
                 loadAlarmList[key] = true
