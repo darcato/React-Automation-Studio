@@ -17,8 +17,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
-import lightGreen from '@material-ui/core/colors/lightGreen';
-import red from '@material-ui/core/colors/red';
 import grey from '@material-ui/core/colors/grey';
 
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -40,10 +38,6 @@ const styles = theme => ({
         // overflowY: "hidden",
         width: '100%',
         overflowY: 'auto',
-        maxHeight: '90vh',
-    },
-    table: {
-        maxHeight: '50vh',
     },
     disabled: {
         background: 'grey',
@@ -76,7 +70,7 @@ class AlarmTable extends Component {
         // console.log('areaSelectedIndex', areaSelectedIndex)
         // console.log('areaAlarms', areaAlarms)
 
-        const isTopArea = !areaSelectedIndex.includes("-")
+        const isTopArea = !areaSelectedIndex.includes("=")
         let currSubArea = ""
         let newSubArea = false
 
@@ -88,8 +82,8 @@ class AlarmTable extends Component {
         };
 
         return (
-            <TableContainer component={Paper} style={{maxHeight:this.props.maxHeight}}>
-                <Table aria-label="simple table" stickyHeader size="small">
+            <TableContainer component={Paper} style={{ height: this.props.height }}>
+                <Table aria-label="Alarm Table" stickyHeader size="small">
                     <TableHead>
                         <TableRow>
                             {this.props.debug
@@ -107,13 +101,19 @@ class AlarmTable extends Component {
                     </TableHead>
                     <TableBody>
                         {Object.keys(areaAlarms).map((areaAlarmName, areaAlarmIndex) => {
-                            if (areaAlarmName.startsWith(areaSelectedIndex)) {
+                            // areaSelectedIndex is area | area=subArea
+                            // areaAlarmName is area | area=subArea | area=subArea | area=subArea=pvd+
+                            let areaKey = areaAlarmName.replace(/=pv\d+/, "")   // areaKey is area | area=subArea
+                            if (isTopArea) {                                    // areaSelectedIndex is area
+                                areaKey = areaKey.split('=')[0]                 // areaKey is area
+                            }
+                            if (areaKey == areaSelectedIndex) {
                                 // console.log('pva://' + "alarmIOC:" + areaAlarms[areaAlarmName]["name"] + "V")
-                                const areaAlarmNameArray = areaAlarmName.split('-')
+                                const areaAlarmNameArray = areaAlarmName.split('=')
                                 let areaName = null
                                 let alarm = null
                                 if (areaAlarmNameArray.length > 2) {
-                                    areaName = areaAlarmNameArray[0] + "-" + areaAlarmNameArray[1]
+                                    areaName = areaAlarmNameArray[0] + "=" + areaAlarmNameArray[1]
                                     alarm = areaAlarmNameArray[2]
                                     newSubArea = currSubArea !== areaName
                                     currSubArea = areaName
@@ -135,7 +135,7 @@ class AlarmTable extends Component {
                                                         borderBottom: 'double'
                                                     }}
                                                 >
-                                                    {areaName}
+                                                    {`${areaName.split('=')[0]} > ${areaName.split('=')[1]}`}
                                                 </TableCell>
                                                 <TableCell style={{ borderBottom: 'double' }}></TableCell>
                                                 <TableCell style={{ borderBottom: 'double' }}></TableCell>

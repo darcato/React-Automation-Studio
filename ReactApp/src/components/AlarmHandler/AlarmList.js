@@ -195,33 +195,33 @@ class AlarmList extends Component {
                                                         <List component="div" disablePadding>
                                                             {area["subAreas"].map((subArea, subAreaIndex) => {
                                                                 return (
-                                                                    <React.Fragment key={`${area["area"]}-${subArea}`}>
+                                                                    <React.Fragment key={`${area["area"]}=${subArea}`}>
                                                                         <ListItem
 
                                                                             button
                                                                             divider
                                                                             className={classes.nested}
-                                                                            selected={this.props.areaSelectedIndex === `${area["area"]}-${subArea}`}
-                                                                            onClick={event => this.props.listItemClick(event, `${area["area"]}-${subArea}`)}
-                                                                            onContextMenu={event => this.props.listItemRightClick(event, `${area["area"]}-${subArea}`)}
+                                                                            selected={this.props.areaSelectedIndex === `${area["area"]}=${subArea}`}
+                                                                            onClick={event => this.props.listItemClick(event, `${area["area"]}=${subArea}`)}
+                                                                            onContextMenu={event => this.props.listItemRightClick(event, `${area["area"]}=${subArea}`)}
 
-                                                                            // classes={(this.props.areaEnabled[`${area["area"]}-${subArea}`]
-                                                                            //     ? this.props.areaPVDict[`${area["area"]}-${subArea}`] == 0
+                                                                            // classes={(this.props.areaEnabled[`${area["area"]}=${subArea}`]
+                                                                            //     ? this.props.areaPVDict[`${area["area"]}=${subArea}`] == 0
                                                                             //         ? { root: classes.majorAlarm, selected: classes.majorAlarmSelected }
-                                                                            //         : this.props.areaPVDict[`${area["area"]}-${subArea}`] == 1
+                                                                            //         : this.props.areaPVDict[`${area["area"]}=${subArea}`] == 1
                                                                             //             ? { root: classes.minorAlarm, selected: classes.minorAlarmSelected }
                                                                             //             : {}
                                                                             //     : { root: classes.disabled, selected: classes.disabledSelected }
                                                                             // )}
 
-                                                                            classes={(this.props.areaEnabled[`${area["area"]}-${subArea}`]
-                                                                                ? this.props.areaPVDict[`${area["area"]}-${subArea}`] == 6 || this.props.areaPVDict[`${area["area"]}-${subArea}`] == 4
+                                                                            classes={(this.props.areaEnabled[`${area["area"]}=${subArea}`]
+                                                                                ? this.props.areaPVDict[`${area["area"]}=${subArea}`] == 6 || this.props.areaPVDict[`${area["area"]}=${subArea}`] == 4
                                                                                     ? { root: classes.majorAlarm, selected: classes.majorAlarmSelected }
-                                                                                    : this.props.areaPVDict[`${area["area"]}-${subArea}`] == 5 || this.props.areaPVDict[`${area["area"]}-${subArea}`] == 3
+                                                                                    : this.props.areaPVDict[`${area["area"]}=${subArea}`] == 5 || this.props.areaPVDict[`${area["area"]}=${subArea}`] == 3
                                                                                         ? { root: classes.majorAlarmAcked, selected: classes.majorAlarmAckedSelected }
-                                                                                        : this.props.areaPVDict[`${area["area"]}-${subArea}`] == 2
+                                                                                        : this.props.areaPVDict[`${area["area"]}=${subArea}`] == 2
                                                                                             ? { root: classes.minorAlarm, selected: classes.minorAlarmSelected }
-                                                                                            : this.props.areaPVDict[`${area["area"]}-${subArea}`] == 1
+                                                                                            : this.props.areaPVDict[`${area["area"]}=${subArea}`] == 1
                                                                                                 ? { root: classes.minorAlarmAcked, selected: classes.minorAlarmAckedSelected }
                                                                                                 : {}    // noAlarm
                                                                                 : { root: classes.disabled, selected: classes.disabledSelected }
@@ -232,8 +232,8 @@ class AlarmList extends Component {
                                                                         </ListItem>
                                                                         <Menu
                                                                             keepMounted
-                                                                            open={this.props.areaContextOpen[`${area["area"]}-${subArea}`]}
-                                                                            onClose={event => this.props.listItemContextClose(event, `${area["area"]}-${subArea}`)}
+                                                                            open={this.props.areaContextOpen[`${area["area"]}=${subArea}`]}
+                                                                            onClose={event => this.props.listItemContextClose(event, `${area["area"]}=${subArea}`)}
                                                                             anchorReference="anchorPosition"
                                                                             anchorPosition={this.props.contextMouseY !== null && this.props.contextMouseX !== null ?
                                                                                 { top: this.props.contextMouseY, left: this.props.contextMouseX } : null}
@@ -243,15 +243,15 @@ class AlarmList extends Component {
                                                                             {this.props.areaEnabled[`${area["area"]}`] ? <hr /> : null}
 
                                                                             {this.props.areaEnabled[`${area["area"]}`] ?
-                                                                                this.props.areaEnabled[`${area["area"]}-${subArea}`] ?
+                                                                                this.props.areaEnabled[`${area["area"]}=${subArea}`] ?
                                                                                     <div>
-                                                                                        <MenuItem onClick={event => this.props.enableDisableArea(event, `${area["area"]}-${subArea}`, false)}>
+                                                                                        <MenuItem onClick={event => this.props.enableDisableArea(event, `${area["area"]}=${subArea}`, false)}>
                                                                                             <ListItemIcon >
                                                                                                 <NotificationsOffIcon fontSize="small" />
                                                                                             </ListItemIcon>
                                                                                             <Typography variant="inherit">Disable Area</Typography>
                                                                                         </MenuItem>
-                                                                                        <MenuItem onClick={event => this.props.ackAllAreaAlarms(event, `${area["area"]}-${subArea}`)}>
+                                                                                        <MenuItem onClick={event => this.props.ackAllAreaAlarms(event, `${area["area"]}=${subArea}`)}>
                                                                                             <ListItemIcon >
                                                                                                 <DoneAllIcon fontSize="small" />
                                                                                             </ListItemIcon>
@@ -259,7 +259,7 @@ class AlarmList extends Component {
                                                                                         </MenuItem>
                                                                                     </div>
                                                                                     :
-                                                                                    <MenuItem onClick={event => this.props.enableDisableArea(event, `${area["area"]}-${subArea}`, true)}>
+                                                                                    <MenuItem onClick={event => this.props.enableDisableArea(event, `${area["area"]}=${subArea}`, true)}>
                                                                                         <ListItemIcon >
                                                                                             <NotificationsActiveIcon fontSize="small" />
                                                                                         </ListItemIcon>
