@@ -155,6 +155,36 @@ class WatchDbDebug extends React.Component {
         }
       });
   }
+  handleOnClickClearLog=()=>{
+    let date= new Date();
+    let entry= date.toUTCString();
+    let socket = this.context.socket;
+    let jwt = JSON.parse(localStorage.getItem('jwt'));
+  if (jwt === null) {
+    jwt = 'unauthenticated'
+  }
+  //let newEntry=this.state.broadcastReadData.log;
+ // newEntry.push(entry);
+  let id=this.state.broadcastReadData['_id']['$oid'];
+  console.log(id)
+
+  console.log(this.state.broadcastReadData)
+ // console.log(newEntry)
+  let newvalues = { '$set': { "log": [] } }
+  socket.emit('databaseUpdateOne', { dbURL: this.state.dbListUpdateOneURL, 'id': id, 'newvalues': newvalues, 'clientAuthorisation': jwt }, (data) => {
+      console.log("ackdata", data);
+      if (data == "OK") {
+        socket.emit('databaseBroadcastRead', { dbURL: this.state.dbListBroadcastReadLogURL, 'clientAuthorisation': jwt }, (data) => {
+
+          if (data !== "OK") {
+            console.log("ackdata", data);
+          }
+        });
+      } else {
+        console.log("set status: pending  unsuccessful")
+      }
+    });
+}
   getDateTime = (timestamp) => {
     let date = new Date(parseFloat(timestamp))
     console.log(timestamp, date)
@@ -208,9 +238,14 @@ class WatchDbDebug extends React.Component {
           >
 
 
-            <Grid item xs={12}  >
+            <Grid item xs={6}  >
             <Button variant="contained" color="primary" onClick={this.handleOnClickNewEntry}>
                New Entry
+            </Button>
+                </Grid>
+                <Grid item xs={6}  >
+            <Button variant="contained" color="primary" onClick={this.handleOnClickClearLog}>
+               Clear Log
             </Button>
                 </Grid>
             <Grid item xs={6}  >
