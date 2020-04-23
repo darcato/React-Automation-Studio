@@ -76,7 +76,9 @@ class AlarmHandler extends Component {
         this.areaPVDict = {}
         this.state = {
             alarmLogExpand: true,
+            alarmLogIsExpanded: true,
             alarmTableExpand: true,
+            alarmTableIsExpanded: true,
             alarmLogSelectedName: '',
             moreVertMenuShow: false,
             moreVertAchorEl: null,
@@ -120,6 +122,15 @@ class AlarmHandler extends Component {
 
     handleDoNothing = () => {
 
+    }
+
+    handleExpansionComplete = (panelName, isExpanded) => {
+        if (panelName === 'alarmTable') {
+            this.setState({ alarmTableIsExpanded: isExpanded })
+        }
+        else if (panelName === 'alarmLog') {
+            this.setState({ alarmLogIsExpanded: isExpanded })
+        }
     }
 
     handleExpandPanel = (panelName) => {
@@ -646,16 +657,12 @@ class AlarmHandler extends Component {
             displayAlarmList = displayAlarmList && value
         }
 
-        let alarmTableHeight = null
-        let alarmLogHeight = null
-        if (this.state.alarmTableExpand && this.state.alarmLogExpand) {
-            alarmTableHeight = '40vh'
-            alarmLogHeight = '30vh'
-        }
-        else if (this.state.alarmTableExpand && !this.state.alarmLogExpand) {
+        let alarmTableHeight = '40vh'
+        let alarmLogHeight = '30vh'
+        if (this.state.alarmTableExpand && !this.state.alarmLogExpand && !this.state.alarmLogIsExpanded) {
             alarmTableHeight = '75vh'
         }
-        else if (!this.state.alarmTableExpand && this.state.alarmLogExpand) {
+        else if (!this.state.alarmTableExpand && !this.state.alarmTableIsExpanded && this.state.alarmLogExpand) {
             alarmLogHeight = '75vh'
         }
 
@@ -763,6 +770,10 @@ class AlarmHandler extends Component {
                                 <ExpansionPanel
                                     expanded={this.state.alarmTableExpand}
                                     onChange={() => this.handleExpandPanel('alarmTable')}
+                                    TransitionProps={{
+                                        onEntered: () => this.handleExpansionComplete('alarmTable', true),
+                                        onExited: () => this.handleExpansionComplete('alarmTable', false)
+                                    }}
                                 >
                                     <ExpansionPanelSummary
                                         expandIcon={<ExpandMoreIcon />}
@@ -800,6 +811,10 @@ class AlarmHandler extends Component {
                                 <ExpansionPanel
                                     expanded={this.state.alarmLogExpand}
                                     onChange={() => this.handleExpandPanel('alarmLog')}
+                                    TransitionProps={{
+                                        onEntered: () => this.handleExpansionComplete('alarmLog', true),
+                                        onExited: () => this.handleExpansionComplete('alarmLog', false)
+                                    }}
                                 >
                                     <ExpansionPanelSummary
                                         expandIcon={<ExpandMoreIcon />}

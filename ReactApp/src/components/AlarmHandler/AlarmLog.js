@@ -40,7 +40,7 @@ class AlarmLog extends Component {
                 // <ListItem button dense>
                 //     <ListItemText primary={`Log${entry}: xxxxx xxxx xxxxx xxxxxxxx xx xxxxx xxxxx xxxxx`} />
                 // </ListItem>
-                <TableRow hover>
+                <TableRow hover key={entry}>
                     <TableCell>{`Log${entry}: xxxxx xxxx xxxxx xxxxxxxx xx xxxxx xxxxx xxxxx`}</TableCell>
                 </TableRow>
             )
