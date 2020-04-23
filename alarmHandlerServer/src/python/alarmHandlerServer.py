@@ -46,6 +46,23 @@ else:
     # Wait for MongoClient to discover the whole replica set and identify MASTER!
     sleep(0.1)
 
+ackedStateDict = {
+    0: "NO_ALARM",
+    1: "MINOR_ACKED",
+    2: "MAJOR_ACKED",
+    3: "INVALID_ACKED"
+}
+
+alarmPVSevDict = {
+    0: "NO_ALARM",
+    1: "MINOR_ACKED",
+    2: "MINOR_ALARM",
+    3: "MAJOR_ACKED",
+    4: "MAJOR_ALARM",
+    5: "INVALID_ACKED",
+    6: "INVALID_ALARM"
+}
+
 pvNameList = []
 areaList = []
 pvDict = {}
@@ -275,10 +292,10 @@ def ackAlarm(ackIndentifier, timestamp):
 
     if (alarmPVSev == 2 or alarmPVSev == 4 or alarmPVSev == 6):
         # in minor, major or invalid state, valid state for ack
-        timestamp = datetime.fromtimestamp(timestamp).strftime(
+        timestamp_string = datetime.fromtimestamp(timestamp).strftime(
             "%a, %d %b %Y at %H:%M:%S")
         # set ack time
-        alarmDict[pvname]["K"].value = timestamp
+        alarmDict[pvname]["K"].value = timestamp_string
         if ("=" in areaKey):
             subAreaKey = subAreaDict[areaKey]
             areaKey = areaKey.split("=")[0]
@@ -287,7 +304,7 @@ def ackAlarm(ackIndentifier, timestamp):
                 {'area': areaKey}, {
                     '$set': {
                         subAreaKey + '.pvs.' + pvKey + '.lastAlarmAckTime':
-                        timestamp
+                        timestamp_string
                     }
                 })
         else:
@@ -295,8 +312,11 @@ def ackAlarm(ackIndentifier, timestamp):
             client[MONGO_INITDB_ALARM_DATABASE].pvs.update_many(
                 {'area': areaKey},
                 {'$set': {
-                    'pvs.' + pvKey + '.lastAlarmAckTime': timestamp
+                    'pvs.' + pvKey + '.lastAlarmAckTime': timestamp_string
                 }})
+        # Log to history
+        print(timestamp, pvname,
+              "Acknowledged", alarmPVSevDict[alarmPVSev], "to state", ackedStateDict[pvsev])
 
     # 0	"NO_ALARM"  # 0 "NO_ALARM"
     # 1	"MINOR"     # 1 "MINOR_ACKED"
@@ -369,7 +389,7 @@ def onChanges(pvname=None, value=None, severity=None, timestamp=None, **kw):
 
 
 def pvPrepareData(pvname, value, severity, timestamp):
-    timestamp = datetime.fromtimestamp(timestamp).strftime(
+    timestamp_string = datetime.fromtimestamp(timestamp).strftime(
         "%a, %d %b %Y at %H:%M:%S")
 
     areaKey, pvKey = getKeys(pvname)
@@ -400,7 +420,7 @@ def pvPrepareData(pvname, value, severity, timestamp):
         pvELN.append(doc["pvs"][pvKey]["latch"])
         pvELN.append(doc["pvs"][pvKey]["notify"])
 
-    processPVAlarm(pvname, value, severity, timestamp, pvELN)
+    processPVAlarm(pvname, value, severity, timestamp, timestamp_string, pvELN)
 
 
 def pvInitData(pvname, value, severity, timestamp):
@@ -408,17 +428,12 @@ def pvInitData(pvname, value, severity, timestamp):
         pvInitDict[pvname] = [value, severity, timestamp]
 
 
-def processPVAlarm(pvname, value, severity, timestamp, pvELN):
+def processPVAlarm(pvname, value, severity, timestamp, timestamp_string, pvELN):
     areaKey, pvKey = getKeys(pvname)
 
     enable = pvELN[0]
     latch = pvELN[1]
     # notify = pvELN[2]
-
-    noAlarm = severity == 0
-    minorAlarm = severity == 1
-    majorAlarm = severity == 2
-    invalidAlarm = severity == 3
 
     # 0 "NO_ALARM"
     # 1 "MINOR_ACKED"
@@ -429,6 +444,11 @@ def processPVAlarm(pvname, value, severity, timestamp, pvELN):
     # 6 "INVALID"
     alarmState = alarmDict[pvname]["A"].value
 
+    noAlarm = severity == 0 and alarmState != 0
+    minorAlarm = severity == 1 and alarmState != 2
+    majorAlarm = severity == 2 and alarmState != 4
+    invalidAlarm = severity == 3 and alarmState != 6
+
     alarmSet = False
     transparent = not latch or not enable
     inAckState = alarmState == 1 or alarmState == 3 or alarmState == 5
@@ -436,30 +456,42 @@ def processPVAlarm(pvname, value, severity, timestamp, pvELN):
     if (noAlarm and (transparent or inAckState)):
         # set current alarm status to NO_ALARM
         alarmDict[pvname]["A"].value = 0
+        # Log to history
+        print(timestamp, pvname, "Alarm cleared to state NO_ALARM")
     elif(minorAlarm and (alarmState == 3 or alarmState == 5)):
         # set current alarm status to MINOR_ACKED
         alarmDict[pvname]["A"].value = 1
-    elif(minorAlarm and (alarmState < 1 or (transparent and alarmState != 1 and alarmState != 2))):
+        # Log to history
+        print(timestamp, pvname, "Alarm demoted to state MINOR_ACKED")
+    elif(minorAlarm and (alarmState < 1 or (transparent and alarmState != 1))):
         # set current alarm status to MINOR
         alarmDict[pvname]["A"].value = 2
         alarmSet = True
+        # Log to history
+        print(timestamp, pvname, "MINOR_ALARM triggered, alarm value =", value)
     elif(majorAlarm and alarmState == 5):
         # set current alarm status to MAJOR_ACKED
         alarmDict[pvname]["A"].value = 3
-    elif(majorAlarm and (alarmState < 3 or (transparent and alarmState != 3 and alarmState != 4))):
+        # Log to history
+        print(timestamp, pvname, "Alarm demoted to state MAJOR_ACKED")
+    elif(majorAlarm and (alarmState < 3 or (transparent and alarmState != 3))):
         # set current alarm status to MAJOR
         alarmDict[pvname]["A"].value = 4
         alarmSet = True
-    elif(invalidAlarm and (alarmState < 5 or (transparent and alarmState != 5 and alarmState != 6))):
+        # Log to history
+        print(timestamp, pvname, "MAJOR_ALARM triggered, alarm value =", value)
+    elif(invalidAlarm and (alarmState < 5 or (transparent and alarmState != 5))):
         # set current alarm status to INVALID
         alarmDict[pvname]["A"].value = 6
         alarmSet = True
+        # Log to history
+        print(timestamp, pvname, "INVALID_ALARM triggered, alarm value =", value)
 
     if(alarmSet):
         # set alarm value
         alarmDict[pvname]["V"].value = str(value)
         # set alarm time
-        alarmDict[pvname]["T"].value = timestamp
+        alarmDict[pvname]["T"].value = timestamp_string
         # write to db
         if ("=" in areaKey):
             subAreaKey = subAreaDict[areaKey]
@@ -469,7 +501,7 @@ def processPVAlarm(pvname, value, severity, timestamp, pvELN):
                     '$set': {
                         subAreaKey + '.pvs.' + pvKey + '.lastAlarmVal': value,
                         subAreaKey + '.pvs.' + pvKey + '.lastAlarmTime':
-                        timestamp
+                        timestamp_string
                     }
                 })
         else:
@@ -477,7 +509,7 @@ def processPVAlarm(pvname, value, severity, timestamp, pvELN):
                 {'area': areaKey}, {
                     '$set': {
                         'pvs.' + pvKey + '.lastAlarmVal': value,
-                        'pvs.' + pvKey + '.lastAlarmTime': timestamp
+                        'pvs.' + pvKey + '.lastAlarmTime': timestamp_string
                     }
                 })
 
@@ -642,10 +674,16 @@ def initialiseAlarmIOC():
                 sev = pvInitDict[pvname][1]
                 if(sev == 1):     # MINOR alarm
                     alarmDict[pvname]["A"].value = 2
+                    # Log to history
+                    print(pvInitDict[pvname][2], pvname, "MINOR_ALARM triggered, alarm value =", lastAlarmVal)
                 elif(sev == 2):     # MAJOR alarm
                     alarmDict[pvname]["A"].value = 4
+                    # Log to history
+                    print(pvInitDict[pvname][2], pvname, "MAJOR_ALARM triggered, alarm value =", lastAlarmVal)
                 elif(sev == 3):     # INVALID alarm
                     alarmDict[pvname]["A"].value = 6
+                    # Log to history
+                    print(pvInitDict[pvname][2], pvname, "INVALID_ALARM triggered, alarm value =", lastAlarmVal)
             except:
                 # set current alarm status to NO_ALARM
                 alarmDict[pvname]["A"].value = 0
