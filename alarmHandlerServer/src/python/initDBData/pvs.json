@@ -14,7 +14,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv1": {
                     "name": "testIOC:PS2:Readback",
@@ -23,7 +24,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv2": {
                     "name": "testIOC:PS3:Readback",
@@ -32,7 +34,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv3": {
                     "name": "testIOC:PS4:Readback",
@@ -41,7 +44,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv4": {
                     "name": "testIOC:STR1:X:Readback",
@@ -50,7 +54,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv5": {
                     "name": "testIOC:STR1:Y:Readback",
@@ -59,7 +64,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv6": {
                     "name": "testIOC:STR2:X:Readback",
@@ -68,7 +74,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv7": {
                     "name": "testIOC:STR2:Y:Readback",
@@ -77,7 +84,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv8": {
                     "name": "testIOC:STR3:Y:Readback",
@@ -86,7 +94,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv9": {
                     "name": "testIOC:STR4:X:Readback",
@@ -95,7 +104,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 }
             }
         },
@@ -110,7 +120,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv1": {
                     "name": "testIOC:SLITXY1:X:Offset:Readback",
@@ -119,7 +130,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv2": {
                     "name": "testIOC:SLITXY1:Y:Gap:Readback",
@@ -128,7 +140,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv3": {
                     "name": "testIOC:SLITXY1:Y:Offset:Readback",
@@ -137,7 +150,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv4": {
                     "name": "testIOC:SLITXY2:X:Gap:Readback",
@@ -146,7 +160,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv5": {
                     "name": "testIOC:SLITXY2:X:Offset:Readback",
@@ -155,7 +170,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv6": {
                     "name": "testIOC:SLITXY2:Y:Gap:Readback",
@@ -164,7 +180,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv7": {
                     "name": "testIOC:SLITXY2:Y:Offset:Readback",
@@ -173,7 +190,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv8": {
                     "name": "testIOC:SLITXY3:X:Gap:Readback",
@@ -182,7 +200,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv9": {
                     "name": "testIOC:SLITXY3:X:Offset:Readback",
@@ -191,7 +210,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv10": {
                     "name": "testIOC:SLITXY3:Y:Gap:Readback",
@@ -200,7 +220,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv11": {
                     "name": "testIOC:SLITXY3:Y:Offset:Readback",
@@ -209,7 +230,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 }
             }
         },
@@ -224,7 +246,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 }
             }
         }
@@ -240,7 +263,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv1": {
                 "name": "$(DEMO_ALARMS_IOC):BEAMLINE-pv1",
@@ -249,7 +273,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv2": {
                 "name": "$(DEMO_ALARMS_IOC):BEAMLINE-pv2",
@@ -258,7 +283,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv3": {
                 "name": "$(DEMO_ALARMS_IOC):BEAMLINE-pv3",
@@ -267,7 +293,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv4": {
                 "name": "$(DEMO_ALARMS_IOC):BEAMLINE-pv4",
@@ -276,7 +303,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv5": {
                 "name": "$(DEMO_ALARMS_IOC):BEAMLINE-pv5",
@@ -285,7 +313,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv6": {
                 "name": "$(DEMO_ALARMS_IOC):BEAMLINE-pv6",
@@ -294,7 +323,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv7": {
                 "name": "$(DEMO_ALARMS_IOC):BEAMLINE-pv7",
@@ -303,7 +333,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv8": {
                 "name": "$(DEMO_ALARMS_IOC):BEAMLINE-pv8",
@@ -312,7 +343,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv9": {
                 "name": "$(DEMO_ALARMS_IOC):BEAMLINE-pv9",
@@ -321,7 +353,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             }
         },
         "subArea0": {
@@ -335,7 +368,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv1": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-AIR-pv1",
@@ -344,7 +378,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv2": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-AIR-pv2",
@@ -353,7 +388,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv3": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-AIR-pv3",
@@ -362,7 +398,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv4": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-AIR-pv4",
@@ -371,7 +408,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv5": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-AIR-pv5",
@@ -380,7 +418,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv6": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-AIR-pv6",
@@ -389,7 +428,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv7": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-AIR-pv7",
@@ -398,7 +438,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv8": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-AIR-pv8",
@@ -407,7 +448,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv9": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-AIR-pv9",
@@ -416,7 +458,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 }
             }
         },
@@ -431,7 +474,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv1": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-FCUPS-pv1",
@@ -440,7 +484,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv2": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-FCUPS-pv2",
@@ -449,7 +494,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv3": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-FCUPS-pv3",
@@ -458,7 +504,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv4": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-FCUPS-pv4",
@@ -467,7 +514,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv5": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-FCUPS-pv5",
@@ -476,7 +524,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv6": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-FCUPS-pv6",
@@ -485,7 +534,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv7": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-FCUPS-pv7",
@@ -494,7 +544,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv8": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-FCUPS-pv8",
@@ -503,7 +554,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv9": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-FCUPS-pv9",
@@ -512,7 +564,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 }
             }
         },
@@ -527,7 +580,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv1": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-VACUUM-pv1",
@@ -536,7 +590,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv2": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-VACUUM-pv2",
@@ -545,7 +600,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv3": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-VACUUM-pv3",
@@ -554,7 +610,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv4": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-VACUUM-pv4",
@@ -563,7 +620,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv5": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-VACUUM-pv5",
@@ -572,7 +630,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv6": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-VACUUM-pv6",
@@ -581,7 +640,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv7": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-VACUUM-pv7",
@@ -590,7 +650,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv8": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-VACUUM-pv8",
@@ -599,7 +660,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv9": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-VACUUM-pv9",
@@ -608,7 +670,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 }
             }
         },
@@ -623,7 +686,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv1": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-WATER-pv1",
@@ -632,7 +696,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv2": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-WATER-pv2",
@@ -641,7 +706,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv3": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-WATER-pv3",
@@ -650,7 +716,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv4": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-WATER-pv4",
@@ -659,7 +726,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv5": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-WATER-pv5",
@@ -668,7 +736,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv6": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-WATER-pv6",
@@ -677,7 +746,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv7": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-WATER-pv7",
@@ -686,7 +756,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv8": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-WATER-pv8",
@@ -695,7 +766,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv9": {
                     "name": "$(DEMO_ALARMS_IOC):BEAMLINE-WATER-pv9",
@@ -704,7 +776,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 }
             }
         }
@@ -720,7 +793,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv1": {
                 "name": "$(DEMO_ALARMS_IOC):BUILDING-pv1",
@@ -729,7 +803,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv2": {
                 "name": "$(DEMO_ALARMS_IOC):BUILDING-pv2",
@@ -738,7 +813,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv3": {
                 "name": "$(DEMO_ALARMS_IOC):BUILDING-pv3",
@@ -747,7 +823,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv4": {
                 "name": "$(DEMO_ALARMS_IOC):BUILDING-pv4",
@@ -756,7 +833,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv5": {
                 "name": "$(DEMO_ALARMS_IOC):BUILDING-pv5",
@@ -765,7 +843,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv6": {
                 "name": "$(DEMO_ALARMS_IOC):BUILDING-pv6",
@@ -774,7 +853,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv7": {
                 "name": "$(DEMO_ALARMS_IOC):BUILDING-pv7",
@@ -783,7 +863,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv8": {
                 "name": "$(DEMO_ALARMS_IOC):BUILDING-pv8",
@@ -792,7 +873,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv9": {
                 "name": "$(DEMO_ALARMS_IOC):BUILDING-pv9",
@@ -801,7 +883,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             }
         },
         "subArea0": {
@@ -815,7 +898,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv1": {
                     "name": "$(DEMO_ALARMS_IOC):BUILDING-FIRE-pv1",
@@ -824,7 +908,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv2": {
                     "name": "$(DEMO_ALARMS_IOC):BUILDING-FIRE-pv2",
@@ -833,7 +918,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv3": {
                     "name": "$(DEMO_ALARMS_IOC):BUILDING-FIRE-pv3",
@@ -842,7 +928,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv4": {
                     "name": "$(DEMO_ALARMS_IOC):BUILDING-FIRE-pv4",
@@ -851,7 +938,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv5": {
                     "name": "$(DEMO_ALARMS_IOC):BUILDING-FIRE-pv5",
@@ -860,7 +948,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv6": {
                     "name": "$(DEMO_ALARMS_IOC):BUILDING-FIRE-pv6",
@@ -869,7 +958,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv7": {
                     "name": "$(DEMO_ALARMS_IOC):BUILDING-FIRE-pv7",
@@ -878,7 +968,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv8": {
                     "name": "$(DEMO_ALARMS_IOC):BUILDING-FIRE-pv8",
@@ -887,7 +978,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv9": {
                     "name": "$(DEMO_ALARMS_IOC):BUILDING-FIRE-pv9",
@@ -896,7 +988,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 }
             }
         },
@@ -911,7 +1004,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv1": {
                     "name": "$(DEMO_ALARMS_IOC):BUILDING-HVAC-pv1",
@@ -920,7 +1014,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv2": {
                     "name": "$(DEMO_ALARMS_IOC):BUILDING-HVAC-pv2",
@@ -929,7 +1024,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv3": {
                     "name": "$(DEMO_ALARMS_IOC):BUILDING-HVAC-pv3",
@@ -938,7 +1034,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv4": {
                     "name": "$(DEMO_ALARMS_IOC):BUILDING-HVAC-pv4",
@@ -947,7 +1044,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv5": {
                     "name": "$(DEMO_ALARMS_IOC):BUILDING-HVAC-pv5",
@@ -956,7 +1054,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv6": {
                     "name": "$(DEMO_ALARMS_IOC):BUILDING-HVAC-pv6",
@@ -965,7 +1064,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv7": {
                     "name": "$(DEMO_ALARMS_IOC):BUILDING-HVAC-pv7",
@@ -974,7 +1074,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv8": {
                     "name": "$(DEMO_ALARMS_IOC):BUILDING-HVAC-pv8",
@@ -983,7 +1084,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv9": {
                     "name": "$(DEMO_ALARMS_IOC):BUILDING-HVAC-pv9",
@@ -992,7 +1094,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 }
             }
         },
@@ -1007,7 +1110,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv1": {
                     "name": "$(DEMO_ALARMS_IOC):BUILDING-SECURITY-pv1",
@@ -1016,7 +1120,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv2": {
                     "name": "$(DEMO_ALARMS_IOC):BUILDING-SECURITY-pv2",
@@ -1025,7 +1130,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv3": {
                     "name": "$(DEMO_ALARMS_IOC):BUILDING-SECURITY-pv3",
@@ -1034,7 +1140,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv4": {
                     "name": "$(DEMO_ALARMS_IOC):BUILDING-SECURITY-pv4",
@@ -1043,7 +1150,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv5": {
                     "name": "$(DEMO_ALARMS_IOC):BUILDING-SECURITY-pv5",
@@ -1052,7 +1160,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv6": {
                     "name": "$(DEMO_ALARMS_IOC):BUILDING-SECURITY-pv6",
@@ -1061,7 +1170,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv7": {
                     "name": "$(DEMO_ALARMS_IOC):BUILDING-SECURITY-pv7",
@@ -1070,7 +1180,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv8": {
                     "name": "$(DEMO_ALARMS_IOC):BUILDING-SECURITY-pv8",
@@ -1079,7 +1190,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv9": {
                     "name": "$(DEMO_ALARMS_IOC):BUILDING-SECURITY-pv9",
@@ -1088,7 +1200,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 }
             }
         }
@@ -1104,7 +1217,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv1": {
                 "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-pv1",
@@ -1113,7 +1227,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv2": {
                 "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-pv2",
@@ -1122,7 +1237,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv3": {
                 "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-pv3",
@@ -1131,7 +1247,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv4": {
                 "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-pv4",
@@ -1140,7 +1257,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv5": {
                 "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-pv5",
@@ -1149,7 +1267,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv6": {
                 "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-pv6",
@@ -1158,7 +1277,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv7": {
                 "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-pv7",
@@ -1167,7 +1287,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv8": {
                 "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-pv8",
@@ -1176,7 +1297,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv9": {
                 "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-pv9",
@@ -1185,7 +1307,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             }
         },
         "subArea0": {
@@ -1199,7 +1322,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv1": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-AIR-pv1",
@@ -1208,7 +1332,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv2": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-AIR-pv2",
@@ -1217,7 +1342,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv3": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-AIR-pv3",
@@ -1226,7 +1352,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv4": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-AIR-pv4",
@@ -1235,7 +1362,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv5": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-AIR-pv5",
@@ -1244,7 +1372,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv6": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-AIR-pv6",
@@ -1253,7 +1382,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv7": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-AIR-pv7",
@@ -1262,7 +1392,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv8": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-AIR-pv8",
@@ -1271,7 +1402,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv9": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-AIR-pv9",
@@ -1280,7 +1412,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 }
             }
         },
@@ -1295,7 +1428,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv1": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-CROOM-pv1",
@@ -1304,7 +1438,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv2": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-CROOM-pv2",
@@ -1313,7 +1448,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv3": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-CROOM-pv3",
@@ -1322,7 +1458,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv4": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-CROOM-pv4",
@@ -1331,7 +1468,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv5": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-CROOM-pv5",
@@ -1340,7 +1478,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv6": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-CROOM-pv6",
@@ -1349,7 +1488,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv7": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-CROOM-pv7",
@@ -1358,7 +1498,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv8": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-CROOM-pv8",
@@ -1367,7 +1508,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv9": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-CROOM-pv9",
@@ -1376,7 +1518,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 }
             }
         },
@@ -1391,7 +1534,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv1": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-SAFETY-pv1",
@@ -1400,7 +1544,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv2": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-SAFETY-pv2",
@@ -1409,7 +1554,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv3": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-SAFETY-pv3",
@@ -1418,7 +1564,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv4": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-SAFETY-pv4",
@@ -1427,7 +1574,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv5": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-SAFETY-pv5",
@@ -1436,7 +1584,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv6": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-SAFETY-pv6",
@@ -1445,7 +1594,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv7": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-SAFETY-pv7",
@@ -1454,7 +1604,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv8": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-SAFETY-pv8",
@@ -1463,7 +1614,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv9": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-SAFETY-pv9",
@@ -1472,7 +1624,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 }
             }
         },
@@ -1487,7 +1640,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv1": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-VACUUM-pv1",
@@ -1496,7 +1650,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv2": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-VACUUM-pv2",
@@ -1505,7 +1660,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv3": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-VACUUM-pv3",
@@ -1514,7 +1670,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv4": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-VACUUM-pv4",
@@ -1523,7 +1680,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv5": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-VACUUM-pv5",
@@ -1532,7 +1690,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv6": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-VACUUM-pv6",
@@ -1541,7 +1700,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv7": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-VACUUM-pv7",
@@ -1550,7 +1710,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv8": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-VACUUM-pv8",
@@ -1559,7 +1720,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv9": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-VACUUM-pv9",
@@ -1568,7 +1730,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 }
             }
         },
@@ -1583,7 +1746,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv1": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-WATER-pv1",
@@ -1592,7 +1756,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv2": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-WATER-pv2",
@@ -1601,7 +1766,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv3": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-WATER-pv3",
@@ -1610,7 +1776,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv4": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-WATER-pv4",
@@ -1619,7 +1786,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv5": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-WATER-pv5",
@@ -1628,7 +1796,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv6": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-WATER-pv6",
@@ -1637,7 +1806,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv7": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-WATER-pv7",
@@ -1646,7 +1816,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv8": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-WATER-pv8",
@@ -1655,7 +1826,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv9": {
                     "name": "$(DEMO_ALARMS_IOC):CYCLOTRON-WATER-pv9",
@@ -1664,7 +1836,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 }
             }
         }
@@ -1680,7 +1853,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv1": {
                 "name": "$(DEMO_ALARMS_IOC):VAULT-pv1",
@@ -1689,7 +1863,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv2": {
                 "name": "$(DEMO_ALARMS_IOC):VAULT-pv2",
@@ -1698,7 +1873,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv3": {
                 "name": "$(DEMO_ALARMS_IOC):VAULT-pv3",
@@ -1707,7 +1883,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv4": {
                 "name": "$(DEMO_ALARMS_IOC):VAULT-pv4",
@@ -1716,7 +1893,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv5": {
                 "name": "$(DEMO_ALARMS_IOC):VAULT-pv5",
@@ -1725,7 +1903,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv6": {
                 "name": "$(DEMO_ALARMS_IOC):VAULT-pv6",
@@ -1734,7 +1913,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv7": {
                 "name": "$(DEMO_ALARMS_IOC):VAULT-pv7",
@@ -1743,7 +1923,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv8": {
                 "name": "$(DEMO_ALARMS_IOC):VAULT-pv8",
@@ -1752,7 +1933,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             },
             "pv9": {
                 "name": "$(DEMO_ALARMS_IOC):VAULT-pv9",
@@ -1761,7 +1943,8 @@
                 "notify": true,
                 "lastAlarmVal": "",
                 "lastAlarmTime": "",
-                "lastAlarmAckTime": ""
+                "lastAlarmAckTime": "",
+                "history": []
             }
         },
         "subArea0": {
@@ -1775,7 +1958,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv1": {
                     "name": "$(DEMO_ALARMS_IOC):VAULT-ARMS-pv1",
@@ -1784,7 +1968,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv2": {
                     "name": "$(DEMO_ALARMS_IOC):VAULT-ARMS-pv2",
@@ -1793,7 +1978,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv3": {
                     "name": "$(DEMO_ALARMS_IOC):VAULT-ARMS-pv3",
@@ -1802,7 +1988,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv4": {
                     "name": "$(DEMO_ALARMS_IOC):VAULT-ARMS-pv4",
@@ -1811,7 +1998,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv5": {
                     "name": "$(DEMO_ALARMS_IOC):VAULT-ARMS-pv5",
@@ -1820,7 +2008,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv6": {
                     "name": "$(DEMO_ALARMS_IOC):VAULT-ARMS-pv6",
@@ -1829,7 +2018,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv7": {
                     "name": "$(DEMO_ALARMS_IOC):VAULT-ARMS-pv7",
@@ -1838,7 +2028,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv8": {
                     "name": "$(DEMO_ALARMS_IOC):VAULT-ARMS-pv8",
@@ -1847,7 +2038,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv9": {
                     "name": "$(DEMO_ALARMS_IOC):VAULT-ARMS-pv9",
@@ -1856,7 +2048,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 }
             }
         },
@@ -1871,7 +2064,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv1": {
                     "name": "$(DEMO_ALARMS_IOC):VAULT-CLEARANCE-pv1",
@@ -1880,7 +2074,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv2": {
                     "name": "$(DEMO_ALARMS_IOC):VAULT-CLEARANCE-pv2",
@@ -1889,7 +2084,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv3": {
                     "name": "$(DEMO_ALARMS_IOC):VAULT-CLEARANCE-pv3",
@@ -1898,7 +2094,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv4": {
                     "name": "$(DEMO_ALARMS_IOC):VAULT-CLEARANCE-pv4",
@@ -1907,7 +2104,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv5": {
                     "name": "$(DEMO_ALARMS_IOC):VAULT-CLEARANCE-pv5",
@@ -1916,7 +2114,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv6": {
                     "name": "$(DEMO_ALARMS_IOC):VAULT-CLEARANCE-pv6",
@@ -1925,7 +2124,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv7": {
                     "name": "$(DEMO_ALARMS_IOC):VAULT-CLEARANCE-pv7",
@@ -1934,7 +2134,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv8": {
                     "name": "$(DEMO_ALARMS_IOC):VAULT-CLEARANCE-pv8",
@@ -1943,7 +2144,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv9": {
                     "name": "$(DEMO_ALARMS_IOC):VAULT-CLEARANCE-pv9",
@@ -1952,7 +2154,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 }
             }
         },
@@ -1967,7 +2170,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv1": {
                     "name": "$(DEMO_ALARMS_IOC):VAULT-HVAC-pv1",
@@ -1976,7 +2180,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv2": {
                     "name": "$(DEMO_ALARMS_IOC):VAULT-HVAC-pv2",
@@ -1985,7 +2190,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv3": {
                     "name": "$(DEMO_ALARMS_IOC):VAULT-HVAC-pv3",
@@ -1994,7 +2200,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv4": {
                     "name": "$(DEMO_ALARMS_IOC):VAULT-HVAC-pv4",
@@ -2003,7 +2210,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv5": {
                     "name": "$(DEMO_ALARMS_IOC):VAULT-HVAC-pv5",
@@ -2012,7 +2220,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv6": {
                     "name": "$(DEMO_ALARMS_IOC):VAULT-HVAC-pv6",
@@ -2021,7 +2230,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv7": {
                     "name": "$(DEMO_ALARMS_IOC):VAULT-HVAC-pv7",
@@ -2030,7 +2240,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv8": {
                     "name": "$(DEMO_ALARMS_IOC):VAULT-HVAC-pv8",
@@ -2039,7 +2250,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 },
                 "pv9": {
                     "name": "$(DEMO_ALARMS_IOC):VAULT-HVAC-pv9",
@@ -2048,7 +2260,8 @@
                     "notify": true,
                     "lastAlarmVal": "",
                     "lastAlarmTime": "",
-                    "lastAlarmAckTime": ""
+                    "lastAlarmAckTime": "",
+                    "history": []
                 }
             }
         }

@@ -83,7 +83,13 @@ class AlarmHandler extends Component {
             moreVertMenuShow: false,
             moreVertAchorEl: null,
             alarmDebug: false,
-            alarmAckField: '',
+            alarmAckField: [],
+            // identifier 0 = area, 1 = subArea, 2 = area_pv, 3 = subArea_pv
+            // area
+            // subArea
+            // pv
+            // logged in username
+            // value
             alarmAckFieldTrig: false,
             alarmIOCPVPrefix: null,
             alarmIOCPVSuffix: null,
@@ -143,14 +149,6 @@ class AlarmHandler extends Component {
             this.setState({ alarmLogExpand: alarmLogExpand ? false : true })
         }
     }
-
-    // handleSetAckField = (value) => {
-    //     const alarmAckField = this.state.alarmAckField
-    //     if (alarmAckField === '') {
-    //         // console.log("set alarmAckField", value)
-    //         this.setState({ alarmAckField: value })
-    //     }
-    // }
 
     handleMoreVertClick = (event) => {
         this.setState({ moreVertAchorEl: event.currentTarget })
@@ -226,9 +224,18 @@ class AlarmHandler extends Component {
 
     handleAckAllAreaAlarms = (event, index) => {
         // console.log('Ack all alarms for', index)
+        let username = JSON.parse(localStorage.getItem('user'))
+
+        let alarmAckField = null
+        if (index.includes("=")) {
+            alarmAckField = ['1', index.split("=")[0], index.split("=")[1], null, username, 'True']
+        }
+        else {
+            alarmAckField = ['0', index, null, null, username, 'True']
+        }
         const alarmAckFieldTrig = !this.state.alarmAckFieldTrig
         this.handleListItemContextClose(event, index)
-        this.setState({ alarmAckField: index, alarmAckFieldTrig: alarmAckFieldTrig })
+        this.setState({ alarmAckField: alarmAckField, alarmAckFieldTrig: alarmAckFieldTrig })
     }
 
     handleTableItemCheck = (event, index, alarm, field, value) => {
@@ -316,9 +323,23 @@ class AlarmHandler extends Component {
 
     handleAlarmAcknowledge = (event, index) => {
         // console.log("Ack alarm:", index)
+
+        let username = JSON.parse(localStorage.getItem('user'))
+
+        const equalsLength = index.match(/=/g).length
+        let alarmAckField = null
+        if (equalsLength === 2) {
+            alarmAckField = ['3', index.split("=")[0], index.split("=")[1], index.split("=")[2], username, 'True']
+        }
+        else {
+            alarmAckField = ['2', index.split("=")[0], null, index.split("=")[1], username, 'True']
+        }
+
+        // console.log(alarmAckField)
+
         const alarmAckFieldTrig = !this.state.alarmAckFieldTrig
         this.handleAlarmContextClose(event, index)
-        this.setState({ alarmAckField: index, alarmAckFieldTrig: alarmAckFieldTrig })
+        this.setState({ alarmAckField: alarmAckField, alarmAckFieldTrig: alarmAckFieldTrig })
     }
 
     handleEnableDisableArea = (event, index, value) => {
