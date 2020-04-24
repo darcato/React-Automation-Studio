@@ -6,7 +6,7 @@ import numpy as np
 import re
 from bson.json_util import dumps
 from bson.objectid import ObjectId
-from time import sleep
+from time import sleep, time
 import subprocess
 import _thread
 from epics import PV, caput
@@ -252,40 +252,66 @@ def getEnables(pvname):
 
 def ackPVChange(value=None, timestamp=None, **kw):
     # print("ack pv:", value)
-    if value != '':
-        _thread.start_new_thread(ackProcess, (
-            value,
-            timestamp,
-        ))
+    if(value):
+        if (value[0] != ''):
+            _thread.start_new_thread(ackProcess, (
+                value,
+                timestamp,
+            ))
 
 
-def ackProcess(ackIndentifier, timestamp):
+def ackProcess(ackArray, timestamp):
     # reset ack pv so you can ack same pv/area multiple times
-    alarmDict["ACK_PV"].value = ""
-    try:
-        re.search(r"=pv\d+", ackIndentifier).group(0)
-        isPV = True
-    except:
-        isPV = False
+    alarmDict["ACK_PV"].value = []
 
-    if (isPV):
-        ackAlarm(ackIndentifier, timestamp)
-    else:
-        # print("Area to be ACKed:",ackIndentifier)
+    # ackArray
+    # 0 identifier 0 = area, 1 = subArea, 2 = area_pv, 3 = subArea_pv
+    # 1 area
+    # 2 subArea
+    # 3 pv
+    # 4 logged in username
+    # 5 value
+
+    isArea = int(ackArray[0]) == 0
+    isSubArea = int(ackArray[0]) == 1
+    isAreaPV = int(ackArray[0]) == 2
+    isSubAreaPV = int(ackArray[0]) == 3
+
+    ackIdentifier = ""
+    username = ackArray[4]
+    if(username == 'None'):
+        username = 'Anonymous'
+
+    if (isSubAreaPV):
+        ackIdentifier = ackArray[1]+"="+ackArray[2]+"="+ackArray[3]
+        # area=subArea=pv
+        ackAlarm(ackIdentifier, timestamp, username)
+    elif(isAreaPV):
+        # area=pv
+        ackIdentifier = ackArray[1]+"="+ackArray[3]
+        ackAlarm(ackIdentifier, timestamp, username)
+    elif(isSubArea):
+        # area=subArea
+        ackIdentifier = ackArray[1]+"="+ackArray[2]
+    elif(isArea):
+        # area
+        ackIdentifier = ackArray[1]
+
+    if(isArea or isSubArea):
         # area or area=subArea
         for key in pvDict.keys():
             # key is area | area=subArea | area=subArea=pv
             # areaKey is area | area=subArea
             areaKey = re.sub(r"=pv\d+", "", key)
-            if ("=" not in ackIndentifier):      # ackIndentifier is area
+            if (isArea):      # ackIdentifier is area
                 areaKey = areaKey.split("=")[0]  # areaKey is area
-            if(areaKey == ackIndentifier):
-                ackAlarm(key, timestamp)
+            if(areaKey == ackIdentifier):
+                ackAlarm(key, timestamp, username)
 
 
-def ackAlarm(ackIndentifier, timestamp):
-    pvsev = pvDict[ackIndentifier].severity
-    pvname = pvDict[ackIndentifier].pvname
+def ackAlarm(ackIdentifier, timestamp, username):
+    pvsev = pvDict[ackIdentifier].severity
+    pvname = pvDict[ackIdentifier].pvname
     alarmPVSev = alarmDict[pvname]["A"].value
 
     areaKey, pvKey = getKeys(pvname)
@@ -307,6 +333,17 @@ def ackAlarm(ackIndentifier, timestamp):
                         timestamp_string
                     }
                 })
+            # Log to history
+            entry = [timestamp, " ".join(
+                [username, "acknowledged", alarmPVSevDict[alarmPVSev], "to", ackedStateDict[pvsev]])]
+            client[MONGO_INITDB_ALARM_DATABASE].pvs.update_many(
+                {'area': areaKey}, {
+                    '$push': {
+                        subAreaKey + '.pvs.' + pvKey + '.history':
+                        entry
+                    }
+                })
+
         else:
             # write to db
             client[MONGO_INITDB_ALARM_DATABASE].pvs.update_many(
@@ -314,9 +351,14 @@ def ackAlarm(ackIndentifier, timestamp):
                 {'$set': {
                     'pvs.' + pvKey + '.lastAlarmAckTime': timestamp_string
                 }})
-        # Log to history
-        print(timestamp, pvname,
-              "Acknowledged", alarmPVSevDict[alarmPVSev], "to state", ackedStateDict[pvsev])
+            # Log to history
+            entry = [timestamp, " ".join(
+                [username, "acknowledged", alarmPVSevDict[alarmPVSev], "to", ackedStateDict[pvsev]])]
+            client[MONGO_INITDB_ALARM_DATABASE].pvs.update_many(
+                {'area': areaKey},
+                {'$push': {
+                    'pvs.' + pvKey + '.history': entry
+                }})
 
     # 0	"NO_ALARM"  # 0 "NO_ALARM"
     # 1	"MINOR"     # 1 "MINOR_ACKED"
@@ -457,12 +499,17 @@ def processPVAlarm(pvname, value, severity, timestamp, timestamp_string, pvELN):
         # set current alarm status to NO_ALARM
         alarmDict[pvname]["A"].value = 0
         # Log to history
-        print(timestamp, pvname, "Alarm cleared to state NO_ALARM")
-    elif(minorAlarm and (alarmState == 3 or alarmState == 5)):
+        print(timestamp, pvname, "alarm cleared to NO_ALARM")
+    elif(minorAlarm and alarmState == 3):
         # set current alarm status to MINOR_ACKED
         alarmDict[pvname]["A"].value = 1
         # Log to history
-        print(timestamp, pvname, "Alarm demoted to state MINOR_ACKED")
+        print(timestamp, pvname, "MAJOR_ACKED alarm demoted to MINOR_ACKED")
+    elif(minorAlarm and alarmState == 5):
+        # set current alarm status to MINOR_ACKED
+        alarmDict[pvname]["A"].value = 1
+        # Log to history
+        print(timestamp, pvname, "INVALID_ACKED alarm demoted to MINOR_ACKED")
     elif(minorAlarm and (alarmState < 1 or (transparent and alarmState != 1))):
         # set current alarm status to MINOR
         alarmDict[pvname]["A"].value = 2
@@ -473,7 +520,7 @@ def processPVAlarm(pvname, value, severity, timestamp, timestamp_string, pvELN):
         # set current alarm status to MAJOR_ACKED
         alarmDict[pvname]["A"].value = 3
         # Log to history
-        print(timestamp, pvname, "Alarm demoted to state MAJOR_ACKED")
+        print(timestamp, pvname, "INVALID_ACKED alarm demoted to MAJOR_ACKED")
     elif(majorAlarm and (alarmState < 3 or (transparent and alarmState != 3))):
         # set current alarm status to MAJOR
         alarmDict[pvname]["A"].value = 4
@@ -675,15 +722,18 @@ def initialiseAlarmIOC():
                 if(sev == 1):     # MINOR alarm
                     alarmDict[pvname]["A"].value = 2
                     # Log to history
-                    print(pvInitDict[pvname][2], pvname, "MINOR_ALARM triggered, alarm value =", lastAlarmVal)
+                    print(pvInitDict[pvname][2], pvname,
+                          "MINOR_ALARM triggered, alarm value =", lastAlarmVal)
                 elif(sev == 2):     # MAJOR alarm
                     alarmDict[pvname]["A"].value = 4
                     # Log to history
-                    print(pvInitDict[pvname][2], pvname, "MAJOR_ALARM triggered, alarm value =", lastAlarmVal)
+                    print(pvInitDict[pvname][2], pvname,
+                          "MAJOR_ALARM triggered, alarm value =", lastAlarmVal)
                 elif(sev == 3):     # INVALID alarm
                     alarmDict[pvname]["A"].value = 6
                     # Log to history
-                    print(pvInitDict[pvname][2], pvname, "INVALID_ALARM triggered, alarm value =", lastAlarmVal)
+                    print(pvInitDict[pvname][2], pvname,
+                          "INVALID_ALARM triggered, alarm value =", lastAlarmVal)
             except:
                 # set current alarm status to NO_ALARM
                 alarmDict[pvname]["A"].value = 0
@@ -750,6 +800,7 @@ def pvCollectionWatch():
                 doc = client[MONGO_INITDB_ALARM_DATABASE].pvs.find_one(
                     documentKey)
                 change = change["updateDescription"]["updatedFields"]
+                timestamp = time()
                 for key in change.keys():
                     # print(key)
                     if (key == "enable"):
@@ -761,25 +812,37 @@ def pvCollectionWatch():
                                 if (area.split("=")[0] == topArea):
                                     areaKey = area
                                     evaluateAreaPVs(areaKey, True)
+                        # Log to history
+                        msg = "ENABLED" if change[key] else "DISABLED"
+                        print(timestamp, topArea,
+                              "area", msg)
                     elif ("pvs." in key and key.endswith(".enable")):
                         # pv enable
                         # print("enable of pv changed!")
                         pvname = None
                         keys = key.split(".")
-                        for key in keys:
-                            if (key != "enable"):
-                                doc = doc.get(key)
+                        for one_key in keys:
+                            if (one_key != "enable"):
+                                doc = doc.get(one_key)
                             else:
                                 doc = doc.get("name")
                                 pvname = doc
                         areaKey = getKeys(pvname)[0]
                         evaluateAreaPVs(areaKey, True)
+                        # Log to history
+                        msg = "ENABLED" if change[key] else "DISABLED"
+                        print(timestamp, pvname,
+                              "alarm", msg)
                     elif (key.endswith(".enable")):
                         # subArea enable
                         areaKey = doc.get("area") + "=" + doc.get(
                             key.split(".")[0])["name"]
                         # print(areaKey, "area enable changed!")
                         evaluateAreaPVs(areaKey, True)
+                        # Log to history
+                        msg = "ENABLED" if change[key] else "DISABLED"
+                        print(timestamp, areaKey.replace("=", " > "),
+                              "sub area", msg)
             except:
                 print("no relevant updates")
 
