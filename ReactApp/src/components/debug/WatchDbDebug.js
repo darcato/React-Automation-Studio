@@ -28,6 +28,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
+import uuid from 'uuid';
 const systemName = 'testIOC';
 
 
@@ -71,6 +72,7 @@ class WatchDbDebug extends React.Component {
 
     this.handleNewDbLogBroadcastRead = this.handleNewDbLogBroadcastRead.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleDatabaseReadWatchAndBroadcastAck=this.handleDatabaseReadWatchAndBroadcastAck.bind(this);
 
   }
 
@@ -185,6 +187,16 @@ class WatchDbDebug extends React.Component {
       }
     });
 }
+handleDatabaseReadWatchAndBroadcastAck=(msg)=>{
+  console.log(msg)
+  if ( typeof msg !=='undefined'){
+    console.log( "dbWatchId: ",msg.dbWatchId)
+    this.setState({dbWatchId:msg.dbWatchId})
+  }
+  else{
+    
+  }
+}
   getDateTime = (timestamp) => {
     let date = new Date(parseFloat(timestamp))
     console.log(timestamp, date)
@@ -192,6 +204,7 @@ class WatchDbDebug extends React.Component {
   }
   componentDidMount() {
     let socket = this.context.socket;
+    
 
 
 
@@ -200,12 +213,10 @@ class WatchDbDebug extends React.Component {
       jwt = 'unauthenticated'
     }
     console.log(this.state.dbListBroadcastReadLogURL)
-    socket.emit('databaseReadWatchAndBroadcast', { dbURL: this.state.dbListBroadcastReadLogURL, 'clientAuthorisation': jwt }, (data) => {
-
-      if (data !== "OK") {
-        console.log("ackdata", data);
-      }
-    });
+    socket.emit('databaseReadWatchAndBroadcast', 
+      { dbURL: this.state.dbListBroadcastReadLogURL, 'clientAuthorisation': jwt }, 
+      this.handleDatabaseReadWatchAndBroadcastAck)
+    
     socket.on('databaseWatchData:' + this.state.dbListBroadcastReadLogURL, this.handleNewDbLogReadWatchBroadcast);
 
     socket.emit('databaseBroadcastRead', { dbURL: this.state.dbListBroadcastReadLogURL, 'clientAuthorisation': jwt }, (data) => {
@@ -215,6 +226,20 @@ class WatchDbDebug extends React.Component {
         }
       });
       socket.on('databaseData:' + this.state.dbListBroadcastReadLogURL, this.handleNewDbLogBroadcastRead);
+   // this.setState({watchId:watchId})
+  }
+
+  componentWillUnmount(){
+    let jwt = JSON.parse(localStorage.getItem('jwt'));
+    if (jwt === null) {
+      jwt = 'unauthenticated'
+    }
+    let socket = this.context.socket;
+    if (typeof( this.state.dbWatchId) !=='undefined'){
+      socket.emit('remove_dbWatch', {dbURL: this.state.dbListBroadcastReadLogURL,dbWatchId:this.state.dbWatchId,'clientAuthorisation':jwt});
+    }
+    socket.removeListener('databaseWatchData:' + this.state.dbListBroadcastReadLogURL, this.handleNewDbLogReadWatchBroadcast);
+    socket.removeListener('databaseData:' + this.state.dbListBroadcastReadLogURL, this.handleNewDbLogBroadcastRead);
   }
 
 
