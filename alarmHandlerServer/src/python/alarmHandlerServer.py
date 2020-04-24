@@ -334,8 +334,8 @@ def ackAlarm(ackIdentifier, timestamp, username):
                     }
                 })
             # Log to history
-            entry = [timestamp, " ".join(
-                [username, "acknowledged", alarmPVSevDict[alarmPVSev], "to", ackedStateDict[pvsev]])]
+            entry = {"timestamp": timestamp, "entry": " ".join(
+                [username, "acknowledged", alarmPVSevDict[alarmPVSev], "to", ackedStateDict[pvsev]])}
             client[MONGO_INITDB_ALARM_DATABASE].pvs.update_many(
                 {'area': areaKey}, {
                     '$push': {
@@ -352,8 +352,8 @@ def ackAlarm(ackIdentifier, timestamp, username):
                     'pvs.' + pvKey + '.lastAlarmAckTime': timestamp_string
                 }})
             # Log to history
-            entry = [timestamp, " ".join(
-                [username, "acknowledged", alarmPVSevDict[alarmPVSev], "to", ackedStateDict[pvsev]])]
+            entry = {"timestamp": timestamp, "entry": " ".join(
+                [username, "acknowledged", alarmPVSevDict[alarmPVSev], "to", ackedStateDict[pvsev]])}
             client[MONGO_INITDB_ALARM_DATABASE].pvs.update_many(
                 {'area': areaKey},
                 {'$push': {
@@ -495,44 +495,67 @@ def processPVAlarm(pvname, value, severity, timestamp, timestamp_string, pvELN):
     transparent = not latch or not enable
     inAckState = alarmState == 1 or alarmState == 3 or alarmState == 5
 
+    logToHistory = False
+
     if (noAlarm and (transparent or inAckState)):
         # set current alarm status to NO_ALARM
         alarmDict[pvname]["A"].value = 0
         # Log to history
-        print(timestamp, pvname, "alarm cleared to NO_ALARM")
+        entry = {"timestamp": timestamp, "entry": " ".join(
+            ["alarm cleared to NO_ALARM"])}
+        # print(timestamp, pvname, "alarm cleared to NO_ALARM")
+        logToHistory = True
     elif(minorAlarm and alarmState == 3):
         # set current alarm status to MINOR_ACKED
         alarmDict[pvname]["A"].value = 1
         # Log to history
-        print(timestamp, pvname, "MAJOR_ACKED alarm demoted to MINOR_ACKED")
+        entry = {"timestamp": timestamp, "entry": " ".join(
+            ["MAJOR_ACKED alarm demoted to MINOR_ACKED"])}
+        # print(timestamp, pvname, "MAJOR_ACKED alarm demoted to MINOR_ACKED")
+        logToHistory = True
     elif(minorAlarm and alarmState == 5):
         # set current alarm status to MINOR_ACKED
         alarmDict[pvname]["A"].value = 1
         # Log to history
-        print(timestamp, pvname, "INVALID_ACKED alarm demoted to MINOR_ACKED")
+        entry = {"timestamp": timestamp, "entry": " ".join(
+            ["INVALID_ACKED alarm demoted to MINOR_ACKED"])}
+        # print(timestamp, pvname, "INVALID_ACKED alarm demoted to MINOR_ACKED")
+        logToHistory = True
     elif(minorAlarm and (alarmState < 1 or (transparent and alarmState != 1))):
         # set current alarm status to MINOR
         alarmDict[pvname]["A"].value = 2
         alarmSet = True
         # Log to history
-        print(timestamp, pvname, "MINOR_ALARM triggered, alarm value =", value)
+        entry = {"timestamp": timestamp, "entry": " ".join(
+            ["MINOR_ALARM triggered, alarm value =", str(value)])}
+        # print(timestamp, pvname, "MINOR_ALARM triggered, alarm value =", value)
+        logToHistory = True
     elif(majorAlarm and alarmState == 5):
         # set current alarm status to MAJOR_ACKED
         alarmDict[pvname]["A"].value = 3
         # Log to history
-        print(timestamp, pvname, "INVALID_ACKED alarm demoted to MAJOR_ACKED")
+        entry = {"timestamp": timestamp, "entry": " ".join(
+            ["INVALID_ACKED alarm demoted to MAJOR_ACKED"])}
+        # print(timestamp, pvname, "INVALID_ACKED alarm demoted to MAJOR_ACKED")
+        logToHistory = True
     elif(majorAlarm and (alarmState < 3 or (transparent and alarmState != 3))):
         # set current alarm status to MAJOR
         alarmDict[pvname]["A"].value = 4
         alarmSet = True
         # Log to history
-        print(timestamp, pvname, "MAJOR_ALARM triggered, alarm value =", value)
+        entry = {"timestamp": timestamp, "entry": " ".join(
+            ["MAJOR_ALARM triggered, alarm value =", str(value)])}
+        # print(timestamp, pvname, "MAJOR_ALARM triggered, alarm value =", value)
+        logToHistory = True
     elif(invalidAlarm and (alarmState < 5 or (transparent and alarmState != 5))):
         # set current alarm status to INVALID
         alarmDict[pvname]["A"].value = 6
         alarmSet = True
         # Log to history
-        print(timestamp, pvname, "INVALID_ALARM triggered, alarm value =", value)
+        entry = {"timestamp": timestamp, "entry": " ".join(
+            ["INVALID_ALARM triggered, alarm value =", str(value)])}
+        # print(timestamp, pvname, "INVALID_ALARM triggered, alarm value =", value)
+        logToHistory = True
 
     if(alarmSet):
         # set alarm value
@@ -542,9 +565,9 @@ def processPVAlarm(pvname, value, severity, timestamp, timestamp_string, pvELN):
         # write to db
         if ("=" in areaKey):
             subAreaKey = subAreaDict[areaKey]
-            areaKey = areaKey.split("=")[0]
+            topArea = areaKey.split("=")[0]
             client[MONGO_INITDB_ALARM_DATABASE].pvs.update_many(
-                {'area': areaKey}, {
+                {'area': topArea}, {
                     '$set': {
                         subAreaKey + '.pvs.' + pvKey + '.lastAlarmVal': value,
                         subAreaKey + '.pvs.' + pvKey + '.lastAlarmTime':
@@ -557,6 +580,23 @@ def processPVAlarm(pvname, value, severity, timestamp, timestamp_string, pvELN):
                     '$set': {
                         'pvs.' + pvKey + '.lastAlarmVal': value,
                         'pvs.' + pvKey + '.lastAlarmTime': timestamp_string
+                    }
+                })
+    if(logToHistory):
+        if ("=" in areaKey):
+            subAreaKey = subAreaDict[areaKey]
+            topArea = areaKey.split("=")[0]
+            client[MONGO_INITDB_ALARM_DATABASE].pvs.update_many(
+                {'area': topArea}, {
+                    '$push': {
+                        subAreaKey + '.pvs.' + pvKey + '.history': entry
+                    }
+                })
+        else:
+            client[MONGO_INITDB_ALARM_DATABASE].pvs.update_many(
+                {'area': areaKey}, {
+                    '$push': {
+                        'pvs.' + pvKey + '.history': entry
                     }
                 })
 
@@ -683,10 +723,10 @@ def initialiseAlarmIOC():
 
         if ("=" in areaKey):
             subAreaKey = subAreaDict[areaKey]
-            areaKey = areaKey.split("=")[0]
+            topArea = areaKey.split("=")[0]
 
             doc = client[MONGO_INITDB_ALARM_DATABASE].pvs.find_one(
-                {"area": areaKey})
+                {"area": topArea})
 
             lastAlarmVal = doc[subAreaKey]["pvs"][pvKey]["lastAlarmVal"]
             lastAlarmTime = doc[subAreaKey]["pvs"][pvKey]["lastAlarmTime"]
@@ -722,18 +762,46 @@ def initialiseAlarmIOC():
                 if(sev == 1):     # MINOR alarm
                     alarmDict[pvname]["A"].value = 2
                     # Log to history
-                    print(pvInitDict[pvname][2], pvname,
-                          "MINOR_ALARM triggered, alarm value =", lastAlarmVal)
+                    entry = {"timestamp": pvInitDict[pvname][2], "entry": " ".join(
+                        ["MINOR_ALARM triggered, alarm value =", str(lastAlarmVal)])}
+                    # print(pvInitDict[pvname][2], pvname,
+                    #       "MINOR_ALARM triggered, alarm value =", lastAlarmVal)
                 elif(sev == 2):     # MAJOR alarm
                     alarmDict[pvname]["A"].value = 4
                     # Log to history
-                    print(pvInitDict[pvname][2], pvname,
-                          "MAJOR_ALARM triggered, alarm value =", lastAlarmVal)
+                    entry = {"timestamp": pvInitDict[pvname][2], "entry": " ".join(
+                        ["MAJOR_ALARM triggered, alarm value =", str(lastAlarmVal)])}
+                    # print(pvInitDict[pvname][2], pvname,
+                    #       "MAJOR_ALARM triggered, alarm value =", lastAlarmVal)
                 elif(sev == 3):     # INVALID alarm
                     alarmDict[pvname]["A"].value = 6
                     # Log to history
-                    print(pvInitDict[pvname][2], pvname,
-                          "INVALID_ALARM triggered, alarm value =", lastAlarmVal)
+                    entry = {"timestamp": pvInitDict[pvname][2], "entry": " ".join(
+                        ["INVALID_ALARM triggered, alarm value =", str(lastAlarmVal)])}
+                    # print(pvInitDict[pvname][2], pvname,
+                    #       "INVALID_ALARM triggered, alarm value =", lastAlarmVal)
+                # Set up pv values accordingly
+                # set alarm value
+                alarmDict[pvname]["V"].value = str(lastAlarmVal)
+                # set alarm time
+                alarmDict[pvname]["T"].value = lastAlarmTime
+                # Write entry to database for alarms that were active on startup
+                if ("=" in areaKey):
+                    subAreaKey = subAreaDict[areaKey]
+                    topArea = areaKey.split("=")[0]
+                    client[MONGO_INITDB_ALARM_DATABASE].pvs.update_many(
+                        {'area': topArea}, {
+                            '$push': {
+                                subAreaKey + '.pvs.' + pvKey + '.history': entry
+                            }
+                        })
+                else:
+                    client[MONGO_INITDB_ALARM_DATABASE].pvs.update_many(
+                        {'area': areaKey}, {
+                            '$push': {
+                                'pvs.' + pvKey + '.history': entry
+                            }
+                        })
             except:
                 # set current alarm status to NO_ALARM
                 alarmDict[pvname]["A"].value = 0
