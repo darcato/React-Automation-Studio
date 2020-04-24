@@ -75,12 +75,14 @@ log.setLevel(logging.ERROR)
 clientPVlist={};
 clientDbWatchList={};
 myuid=0
+myDbWatchUid=0
 def check_pv_initialized_after_disconnect():
-    global clientPVlist
+    global clientPVlist,clientDbWatchList
     while (True):
         for pvname in list(clientPVlist) :
             if not((len(clientPVlist[pvname]['sockets'])>0 ) or (len(clientPVlist[pvname]['socketsRW'])>0 )or (len(clientPVlist[pvname]['socketsRO'])>0 )):
                 #print(pvname, " has no listening clients, removing")
+                
                 clientPVlist[pvname]['pv'].disconnect()
                 clientPVlist.pop(pvname)
             else:
@@ -134,13 +136,75 @@ def check_pv_initialized_after_disconnect():
                                 print("Unexpected error:", sys.exc_info()[0])
                                 raise
 
+        # for watchEventName in clientDbWatchList :
+        #     print("watchEventName")
+        #     with clientDbWatchList[watchEventName]['watch'] as stream:
+        #         for change in stream:
+        #             try:
+        #                 #documentKey = change["documentKey"]
+        #                 doc = clientDbWatchList[watchEventName]['collection'].find(clientDbWatchList[watchEventName]['query'])
+        #                 print(str(change))
+        #                 #print("documentKey: ",documentKey)
+        #                 #print(watchEventName,change)
+        #                 data=dumps(doc)
+        #                 eventName=watchEventName
+        #                 dbURL=clientDbWatchList[watchEventName]['dbURL']
+        #                 d={'dbURL': dbURL,'write_access':True,'data': data}
+        #                 socketio.emit(eventName,d,str(dbURL)+'rw',namespace='/pvServer')
+        #                 d={'dbURL': dbURL,'write_access':False,'data': data}
+        #                 socketio.emit(eventName,d,str(dbURL)+'ro',namespace='/pvServer')
+                        
+        #             except:
+        #                 print("Unexpected error:", sys.exc_info()[0])
+        #                 raise    
+        time.sleep(0.1)
+def dbWatchControlThread():
+    global clientDbWatchList
+
+    print("dbWatchControlThread started")
+    while (True):
+        
         for watchEventName in clientDbWatchList :
+            
+            if clientDbWatchList[watchEventName]['threadStarted'] is False:
+                clientDbWatchList[watchEventName]['thread']=threading.Thread(target=dbWatchThread,args=[watchEventName]).start()
+                clientDbWatchList[watchEventName]['threadStarted']=True
+                print("control thread starting thread",watchEventName)
+
+            # with clientDbWatchList[watchEventName]['watch'] as stream:
+            #     for change in stream:
+            #         try:
+            #             #documentKey = change["documentKey"]
+            #             doc = clientDbWatchList[watchEventName]['collection'].find(clientDbWatchList[watchEventName]['query'])
+            #             #print(str(change))
+            #             #print("documentKey: ",documentKey)
+            #             #print(watchEventName,change)
+            #             data=dumps(doc)
+            #             eventName=watchEventName
+            #             dbURL=clientDbWatchList[watchEventName]['dbURL']
+            #             d={'dbURL': dbURL,'write_access':True,'data': data}
+            #             socketio.emit(eventName,d,str(dbURL)+'rw',namespace='/pvServer')
+            #             d={'dbURL': dbURL,'write_access':False,'data': data}
+            #             socketio.emit(eventName,d,str(dbURL)+'ro',namespace='/pvServer')
+                        
+            #         except:
+            #             print("Unexpected error:", sys.exc_info()[0])
+            #             raise    
+        time.sleep(0.1)
+def dbWatchThread(watchEventName):
+    global clientDbWatchList
+
+    print("dbWatchThread started for:",watchEventName)
+    while (True):
+        
+        if watchEventName in clientDbWatchList :
+            
             with clientDbWatchList[watchEventName]['watch'] as stream:
                 for change in stream:
                     try:
                         #documentKey = change["documentKey"]
                         doc = clientDbWatchList[watchEventName]['collection'].find(clientDbWatchList[watchEventName]['query'])
-                        #print(str(doc))
+                        #print(str(change))
                         #print("documentKey: ",documentKey)
                         #print(watchEventName,change)
                         data=dumps(doc)
@@ -150,11 +214,11 @@ def check_pv_initialized_after_disconnect():
                         socketio.emit(eventName,d,str(dbURL)+'rw',namespace='/pvServer')
                         d={'dbURL': dbURL,'write_access':False,'data': data}
                         socketio.emit(eventName,d,str(dbURL)+'ro',namespace='/pvServer')
+                        
                     except:
                         print("Unexpected error:", sys.exc_info()[0])
                         raise    
         time.sleep(0.1)
-
 
 
 def onValueChanges(pvname=None,count=None,char_value=None,severity=None,status=None, value=None, timestamp=None, **kw):
@@ -203,7 +267,7 @@ def background_thread():
 
     count = 0
     threading.Thread(target=check_pv_initialized_after_disconnect).start()
-
+    threading.Thread(target=dbWatchControlThread).start()
     while True:
         socketio.sleep(0.1)
 
@@ -669,9 +733,53 @@ def databaseBroadcastRead(message):
         socketio.emit('redirectToLogIn',room=request.sid,namespace='/pvServer')
 
 
+
+@socketio.on('remove_dbWatch', namespace='/pvServer')
+def test_message(message):
+    global clientPVlist,REACT_APP_DisableLogin, myuid
+    dbURL= str(message['dbURL'])
+    authenticated=False
+    if REACT_APP_DisableLogin:
+        authenticated=True
+        accessControl={'userAuthorised':True,'permissions':{'read':True,'write':True}}
+    else :
+        accessControl=AutheriseUserAndPermissions(message['clientAuthorisation'],dbURL)
+        authenticated=accessControl['userAuthorised']
+
+    if accessControl['userAuthorised'] :
+
+        watchEventName='databaseWatchData:'+dbURL;
+        if watchEventName in	clientDbWatchList:
+            print("remove ",watchEventName)
+            #print(message)
+            dbWatchId=message['dbWatchId']
+            # try:
+            #     #print("before pop",clientPVlist[pvname1]['sockets'][request.sid]['pvConnectionIds'])
+            #     if dbWatchId in clientDbWatchList[watchEventName]['sockets'][request.sid]['dbWatchIds']:
+            #         #print("debug1: ",pvConnectionId, pvname1)
+            #         #print("before pop",clientDbWatchList[watchEventName]['sockets'][request.sid]['pvConnectionIds'])
+            #         clientDbWatchList[watchEventName]['sockets'][request.sid]['dbWatchIds'].pop(str(dbWatchId))
+            #         if len(clientDbWatchList[watchEventName]['sockets'][request.sid]['dbWatchIds'])==0:
+            #             leave_room(str(watchEventName))
+            #             clientDbWatchList[watchEventName]['sockets'].pop(request.sid)
+            #         #print("after pop",clientPVlist[pvname1]['sockets'][request.sid]['pvConnectionIds'])
+            # except:
+            #     pass
+          
+
+
+        else:
+            print("Error watchEventName not in clientDbWatchList: ",watchEventName)
+            
+    else:
+        socketio.emit('redirectToLogIn',room=request.sid,namespace='/pvServer')
+
+
+
+
 @socketio.on('databaseReadWatchAndBroadcast', namespace='/pvServer')
 def databaseBroadcastRead(message):
-    global clientPVlist,REACT_APP_DisableLogin,clientDbWatchList
+    global clientPVlist,REACT_APP_DisableLogin,clientDbWatchList,myDbWatchUid
     dbURL= str(message['dbURL'])
 
     #print("databaseRead: SSID: ",request.sid,' dbURL: ', dbURL)
@@ -759,7 +867,8 @@ def databaseBroadcastRead(message):
                             
                             
                             watchEventName=eventName
-
+                            myDbWatchUid=myDbWatchUid+1
+                            dbWatchId=str(myDbWatchUid)
                             if not (watchEventName in	clientDbWatchList):
                                 dbWatch={}
                                 dbWatch['watchEventName']=watchEventName
@@ -769,13 +878,37 @@ def databaseBroadcastRead(message):
                                 dbWatch['watch']=mycol.watch()
                                 dbWatch['dbURL']=dbURL
                                 dbWatch['query']=query
-
+                                dbWatch['sockets']={
+                                    str(request.sid):{
+                                        "dbWatchIds":{
+                                            str(dbWatchId):True
+                                        }
+                                    }
+                                }
+                                dbWatch['thread']=None
+                                dbWatch['threadStarted']=False
+                                
                                 clientDbWatchList[watchEventName]=dbWatch
                                 join_room(str(watchEventName))
                             else:
+                                
+                                if request.sid in clientDbWatchList[watchEventName]['sockets']:
+                                    if 'dbWatchIds' in clientDbWatchList[watchEventName]['sockets'][request.sid]:
+                                        if  dbWatchIds in clientDbWatchList[watchEventName]['sockets'][request.sid]['dbWatchIds']:
+                                            print("not a unique id ",dbWatchIds, " ",watchEventName )
+                            #               print("allConnectionIds ",clientDbWatchList[watchEventName]['sockets'][request.sid]['dbWatchIds'])
+                                        else:
+                                            clientDbWatchList[watchEventName]['sockets'][request.sid]['dbWatchIds'][dbWatchIds]=True
+                                    else:
+                                        clientDbWatchList[watchEventName]['sockets'][request.sid]['dbWatchIds']={dbWatchIds:True}
+                                else:
+                                    clientDbWatchList[watchEventName]['sockets'][request.sid]={'dbWatchIds':{dbWatchId:True}}
+
                                 join_room(str(watchEventName))
                                 print("watch already exists: ",watchEventName)
-                            return 'OK'
+                           
+                            return {"dbWatchId":dbWatchId}
+                            
                         except:
                             print("could not connect to MongoDB: ",dbURL)
                             return "Ack: Could not connect to MongoDB: "+str(dbURL)
